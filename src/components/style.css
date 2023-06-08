@@ -1,0 +1,65 @@
+.assign, .compo ,.signin, .details, .main{
+    background-color: rgb(14, 22, 33);
+        /* height: 150vh; */
+}
+
+
+.main{
+    height: 175vh;
+}
+.header{
+        background-color: rgb(19, 27, 37);
+        
+
+}
+
+
+.seacrh{
+    color: rgb(181, 66, 151);
+}
+
+.footer{
+        background-color: rgb(14, 22, 33);
+        height: 150vh;
+        /* background-color: rgb(3, 11, 19); */
+
+}
+
+.foot{
+     background-color: rgb(3, 11, 19);
+     margin-top: 140vh;
+
+}
+
+.box, .sidebar{
+    background-color: rgb(31, 38, 49);
+}
+
+.title{
+    color: rgb(17, 167, 156);
+}
+
+.create{
+background-color: rgb(14, 22, 33);
+color: rgb(17, 167, 156);
+/* width: 112ch; */
+}
+
+.copyright{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login{
+     background-color: rgb(14, 22, 33);
+    
+}
+
+.category{
+
+        background-color: rgb(14, 22, 33);
+        
+}
+
+
