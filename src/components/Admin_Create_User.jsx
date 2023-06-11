@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
 const Admin_Create_User = () => {
+  const [rollNo, setRollNo] = useState("");
+  // const statusToken = useStateStore((state) => state.token);
+  // const checkToken = useStateStore((state) => state.checkStatus);
+  // const addToken = useStateStore((state) => state.addToken);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log(rollNo);
+    // addToken(rollNo);
+    // console.log(statusToken);
+  };
   return (
     <div className="">
       <div className="compo flex   pt-16    text-white font-semibold ">
@@ -27,6 +36,7 @@ const Admin_Create_User = () => {
                 <form action="">
                   <div className="flex justify-end">
                     <input
+                      onChange={(e) => setRollNo(e.target.value)}
                       type="text"
                       name="name"
                       placeholder="SEC076BEI012"
@@ -37,7 +47,10 @@ const Admin_Create_User = () => {
                 </form>
               </div>
 
-              <div className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center">
+              <div
+                onClick={handleLogin}
+                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
+              >
                 <button className="text-white font-semibold">Register</button>
               </div>
             </div>
