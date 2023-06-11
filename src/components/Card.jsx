@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../components/style.css";
+import { useAdminStore, useUserStore } from "../../store";
 
 const Card = ({ id, src, title, qty }) => {
   //   const components = [
@@ -80,13 +81,21 @@ const Card = ({ id, src, title, qty }) => {
   const [accessToken, setAccessToken] = useState(false);
   const [editAccess, setEditAccess] = useState(false);
   const [qtyAccess, setQtyAccess] = useState(Number);
+  const adminStatusToken = useAdminStore((state) => state.token);
+  const userStatusToken = useUserStore((state) => state.token);
+
+  const checkUserToken = useUserStore((state) => state.checkStatus);
+  const checkAdminToken = useAdminStore((state) => state.checkStatus);
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setAccessToken(true);
-    } else {
-      setAccessToken(false);
-    }
+    // const token = localStorage.getItem("token");
+    // if (token) {
+    //   setAccessToken(true);
+    // } else {
+    //   setAccessToken(false);
+    // }
+    checkUserToken();
+    checkAdminToken();
   }, []);
 
   return (
@@ -96,7 +105,7 @@ const Card = ({ id, src, title, qty }) => {
         <img src={src} alt="" className="w-full h-40 mx-auto" />
         <div className="px-6 py-4 bg-prlink flex items-center flex-col">
           <p className="title text-lg font-semibold  mt-3">{title}</p>
-         
+
           <p className="text-lg font-semibold text-white mt-3">
             {qty}
             {qtyAccess}
@@ -111,7 +120,7 @@ const Card = ({ id, src, title, qty }) => {
           </p>
           <div className="flex justify-between w-full">
             <div>
-              {accessToken && !editAccess && (
+              {adminStatusToken && !editAccess && (
                 <div
                   onClick={() => setEditAccess(true)}
                   className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center"
@@ -120,17 +129,16 @@ const Card = ({ id, src, title, qty }) => {
                 </div>
               )}
 
-              {accessToken && editAccess && (
+              {adminStatusToken && editAccess && (
                 <div
                   onClick={() => setEditAccess(false)}
                   className="bg-dpink hover:cursor-pointer ml-2 mt-3 px-3 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
                 >
                   <button className="text-white font-semibold">Done</button>
                 </div>
-                
               )}
             </div>
-            {accessToken && (
+            {adminStatusToken && (
               <div className="flex">
                 <div className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center">
                   <button className="text-white font-semibold">Assign</button>
