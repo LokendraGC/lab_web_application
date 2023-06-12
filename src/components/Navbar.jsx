@@ -35,6 +35,8 @@ function Navbar() {
         <Link to={"/login"}>
           <div className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col">
             <div className="pt-1 pr-1">
+              {" "}
+              <div className="pt-1 pr-1"></div>
               <MdLogin />
             </div>
             Login
@@ -46,12 +48,12 @@ function Navbar() {
             <h1>Create</h1>
           </Link>
 
-         <Link to={'/checkout'}>
-          <h1 className="hover:cursor-pointer">Checkout</h1>
-         </Link>
-         
-          <Link to={'/assigned'}>
-          <h1 className="hover:cursor-pointer">Assigned</h1>
+          <Link to={"/checkout"}>
+            <h1 className="hover:cursor-pointer">Checkout</h1>
+          </Link>
+
+          <Link to={"/assigned"}>
+            <h1 className="hover:cursor-pointer">Assigned</h1>
           </Link>
 
           <div
