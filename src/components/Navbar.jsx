@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import logo from "../assets/images/text_logo_thumb.png";
 import { MdLogin } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useAdminStore, useUserStore } from "../../store";
 
 function Navbar() {
-  const [token, setToken] = React.useState(false);
-  React.useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setToken(true);
-    } else {
-      setToken(false);
-    }
+  const userStatusToken = useUserStore((state) => state.token);
+  const checkUserToken = useUserStore((state) => state.checkStatus);
+  const rollNo = useUserStore((state) => state.rollNo);
+  const removeUserToken = useUserStore((state) => state.removeToken);
+
+  const adminStatusToken = useAdminStore((state) => state.token);
+  const checkAdminToken = useAdminStore((state) => state.checkStatus);
+  const removeAdminToken = useAdminStore((state) => state.removeToken);
+
+  useEffect(() => {
+    checkUserToken();
+    checkAdminToken();
+    console.log("user", userStatusToken);
+    console.log("admin", adminStatusToken);
+    console.log(rollNo);
   }, []);
+
   const handleLogout = () => {
-    if (token) {
-      localStorage.removeItem("token");
-      setToken(false);
+    if (adminStatusToken) removeAdminToken();
+    else {
+      removeUserToken();
     }
   };
 
@@ -31,18 +41,21 @@ function Navbar() {
           <img src={logo} className="h-16 w-60 " alt="" />
         </div>
       </Link>
-      {!token ? (
-        <Link to={"/login"}>
-          <div className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col">
+      {userStatusToken && !adminStatusToken && (
+        <>
+          <div>{rollNo?.length > 0 && rollNo}</div>
+          <div
+            className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col"
+            onClick={handleLogout}
+          >
             <div className="pt-1 pr-1">
-              {" "}
-              <div className="pt-1 pr-1"></div>
-              <MdLogin />
+              <BiLogOut />
             </div>
-            Login
+            Logout
           </div>
-        </Link>
-      ) : (
+        </>
+      )}
+      {adminStatusToken && !userStatusToken && (
         <div className="flex justify-center items-center space-x-5">
           <Link to="/createuser">
             <h1>Create</h1>
@@ -66,6 +79,16 @@ function Navbar() {
             Logout
           </div>
         </div>
+      )}
+      {!adminStatusToken && !userStatusToken && (
+        <Link to={"/login"}>
+          <div className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col">
+            <div className="pt-1 pr-1">
+              <MdLogin />
+            </div>
+            Login
+          </div>
+        </Link>
       )}
     </div>
   );
