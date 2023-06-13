@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Admin_Create_User = () => {
   const [rollNo, setRollNo] = useState("");
@@ -11,20 +12,42 @@ const Admin_Create_User = () => {
     // addToken(rollNo);
     // console.log(statusToken);
   };
+  const { pathname } = useLocation();
+  const [activeCreate, setActiveCreate] = useState(false);
+  useEffect(() => {
+    console.log(pathname);
+    if (pathname == "/createuser") {
+      setActiveCreate(true);
+    } else {
+      setActiveCreate(false);
+    }
+  }, [pathname]);
+
   return (
     <div className="">
-      <div className="compo flex   pt-16    text-white font-semibold ">
-        <div className="compo px-4 sidebar w-1/4 h-72 ml-5  ">
-          <div className=" pt-12  space-y-6 ">
-            <h3 className="create border-b-2 border-gray-500  p-3 hover:cursor-pointer hover:bg-dpink   bg-crit">
+      <div className="compo flex  justify-start pt-16  text-white font-semibold  ">
+        <div className="compo  sidebar w-1/4 h-56 ml-5
+         border-2 border-gray-600 mt-16 ">
+          <div className="  space-y-6 ">
+            <h3 className="create border-b-2 border-gray-500  p-3 bg-crit">
               Create
             </h3>
-            <h3 className="border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink ">
-              User
-            </h3>
-            <h3 className="border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink ">
-              Components
-            </h3>
+
+            <Link to={"/createuser"}>
+              <h3
+                className={`border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink ${
+                  activeCreate ? "bg-dpink" : "bg-none"
+                }`}
+              >
+                User
+              </h3>
+            </Link>
+
+            <Link to={"/addcompo"}>
+              <h3 className="border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink ">
+                Components
+              </h3>
+            </Link>
           </div>
         </div>
 

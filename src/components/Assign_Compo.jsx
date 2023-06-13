@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 // import { Assigned_Data } from "../assets/data/Assigned_Data";
 // import { Sidebar_Data } from "../assets/data/Sidebar_Data";
 
@@ -12,15 +13,21 @@ const Assign_Compo = () => {
           className="assign flex bg-dpink space-x-8 pl-24 items-center pt-10 font-semibold 
          "
         >
+         <Link to={'/checkout'}>
           <h3 className="bg-dpink h-9 w-36 pl-8 pt-1 hover:cursor-pointer">
-            SEC076BEI
+            SEC076BEI012
           </h3>
+         </Link>
+         <Link to={'/checkout'}>
           <h3 className="bg-dpink h-9 w-36 pl-8 pt-1 hover:cursor-pointer">
-            SEC076BEI
+            SEC076BEI012
           </h3>
+         </Link>
+         <Link to={'/checkout'}>
           <h3 className="bg-dpink h-9 w-36 pl-8 pt-1 hover:cursor-pointer">
-            SEC076BEI
+            SEC076BEI012
           </h3>
+         </Link>
         </div>
       </div>
     </div>
