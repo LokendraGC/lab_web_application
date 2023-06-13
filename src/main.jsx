@@ -12,7 +12,7 @@ import Add_Compo from './components/Add_Components'
 import Admin_Create_User from './components/Admin_Create_User'
 import CheckOut from './components/CheckOut'
 import Assign_Compo from './components/Assign_Compo'
-
+import AdminCheckOut from './components/Admin_CheckOut'
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -20,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Navbar />
       <Routes>
+        <Route path='/admincheck' element={<AdminCheckOut/>}/>
         <Route path='/checkout' element={<CheckOut/>}/>
         <Route path='/assigned' element={<Assign_Compo/>}/>
         <Route path='/createuser' element={<Admin_Create_User/>}/>

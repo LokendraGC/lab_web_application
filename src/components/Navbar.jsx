@@ -57,11 +57,12 @@ function Navbar() {
       )}
       {adminStatusToken && !userStatusToken && (
         <div className="flex justify-center items-center space-x-5">
+         
           <Link to="/createuser">
             <h1>Create</h1>
           </Link>
 
-          <Link to={"/checkout"}>
+          <Link to={"/admincheck"}>
             <h1 className="hover:cursor-pointer">Checkout</h1>
           </Link>
 

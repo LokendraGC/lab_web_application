@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import authApi from "./hooks/authApi";
+import { Link } from "react-router-dom";
 // import { Assigned_Data } from "../assets/data/Assigned_Data";
 // import { Sidebar_Data } from "../assets/data/Sidebar_Data";
 
@@ -17,12 +18,14 @@ const Assign_Compo = () => {
         >
           {data &&
             data.map((stud) => (
-              <h3
-                key={stud.id}
-                className="bg-dpink h-9 w-36 text-center pt-1 hover:cursor-pointer"
-              >
-                {stud.studentID}
-              </h3>
+              <Link to="/checkout">
+                <h3
+                  key={stud.id}
+                  className="bg-dpink h-9 w-36 text-center pt-1 hover:cursor-pointer"
+                >
+                  {stud.studentID}
+                </h3>
+              </Link>
             ))}
         </div>
       </div>

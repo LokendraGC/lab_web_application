@@ -1,4 +1,4 @@
-.assign, .compo ,.signin, .details, .main{
+.admincheck, .assign, .compo ,.signin, .details, .main{
     background-color: rgb(14, 22, 33);
         /* height: 150vh; */
 }
@@ -13,6 +13,9 @@
 
 }
 
+.cheekout{
+    margin-top:5px;
+}
 
 .seacrh{
     color: rgb(181, 66, 151);
@@ -63,3 +66,14 @@ color: rgb(17, 167, 156);
 }
 
 
+.borders{
+    border-left: 1px solid gray;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+}
+
+.crush{
+    margin-left: 45px;
+}
