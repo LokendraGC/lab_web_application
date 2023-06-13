@@ -6,22 +6,47 @@ import { useAdminStore } from "../../store";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const statusToken = useAdminStore((state) => state.token);
   const checkToken = useAdminStore((state) => state.checkStatus);
   const addToken = useAdminStore((state) => state.addToken);
+
   useEffect(() => {
     checkToken();
-    console.log(statusToken);
     if (statusToken) {
       navigate("/");
     }
   }, [checkToken, statusToken]);
 
-  const handleLogin = (e) => {
+  const handleRegister = async (username, password, email) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username,
+        password,
+        email,
+      }),
+    };
+    const data = await fetch(
+      "http://localhost:8000/user/register",
+      requestOptions
+    );
+    const res = await data.json();
+    if (res.token) return res.token;
+    else {
+      alert("Failed to Login");
+    }
+  };
+  const handleLogin = async (e) => {
     e.preventDefault();
-    addToken(email);
+    const getToken = await handleRegister(username, password, email);
+    if (getToken) {
+      addToken(getToken);
+    }
+    setUsername("");
     setEmail("");
     setPassword("");
   };
@@ -71,6 +96,15 @@ const Signin = () => {
                   className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
             text-black focus:outline-none my-6 border-bl"
                 />
+                <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  name="name"
+                  placeholder="username"
+                  className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
+            text-black focus:outline-none my-6 border-bl"
+                />
 
                 <input
                   value={password}
@@ -82,7 +116,7 @@ const Signin = () => {
             text-black focus:outline-none my-6 border-bl"
                 />
               </div>
-              <button className="mx-auto bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center mt-16 text-white font-semibold">
+              <button className="mx-auto bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center text-white font-semibold">
                 Signin
               </button>
             </form>

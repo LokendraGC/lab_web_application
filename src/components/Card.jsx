@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../components/style.css";
 import { useAdminStore, useUserStore } from "../../store";
+import { Link } from "react-router-dom";
+import authApi from "./hooks/authApi";
+import axios from "axios";
 
 const Card = ({ id, src, title, qty }) => {
   //   const components = [
@@ -86,6 +89,25 @@ const Card = ({ id, src, title, qty }) => {
 
   const checkUserToken = useUserStore((state) => state.checkStatus);
   const checkAdminToken = useAdminStore((state) => state.checkStatus);
+  async function deleteItem(id) {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NDMzMzA2LCJpYXQiOjE2ODY1NjkzMDYsImp0aSI6ImI0YWQwNmQzYjJiZjQ4MmM4ZDMyNzFjODM5NDY1NjI5IiwidXNlcl9pZCI6MX0.Ahntz3zXZ038d4PHj5FwX_3kxIidSEftVk3VRXLIAJc";
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    try {
+      await axios.delete(`http://localhost:8000/components/${id}`, headers);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    deleteItem(id);
+  };
 
   useEffect(() => {
     // const token = localStorage.getItem("token");
@@ -102,48 +124,57 @@ const Card = ({ id, src, title, qty }) => {
     <>
       {/* {components.map(({ id, src, title, qty }) => ( */}
       <div key={id} className="max-w-sm rounded overflow-hidden shadow-lg">
-        <img src={src} alt="" className="w-full h-40 mx-auto" />
+        <img
+          src={`http://localhost:8000${src}`}
+          alt=""
+          className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700"
+        />
         <div className="px-6 py-4 bg-prlink flex items-center flex-col">
           <p className="title text-lg font-semibold  mt-3">{title}</p>
 
           <p className="text-lg font-semibold text-white mt-3">
-            {qty}
-            {qtyAccess}
+            {!editAccess && qty}
             {editAccess && (
               <input
                 type="number"
-                defaultValue={"3"}
-                className="text-black"
+                defaultValue={"0"}
+                max={qty}
+                className="text-black w-1/6 pl-1"
                 onChange={(e) => setQtyAccess(e.target.value)}
               />
             )}{" "}
           </p>
           <div className="flex justify-between w-full">
             <div>
-              {adminStatusToken && !editAccess && (
-                <div
-                  onClick={() => setEditAccess(true)}
-                  className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center"
-                >
-                  <button className="text-white font-semibold">Edit</button>
-                </div>
-              )}
-
-              {adminStatusToken && editAccess && (
-                <div
-                  onClick={() => setEditAccess(false)}
-                  className="bg-dpink hover:cursor-pointer ml-2 mt-3 px-3 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
-                >
-                  <button className="text-white font-semibold">Done</button>
-                </div>
+              {adminStatusToken && (
+                <Link to={`/${title}/${id}`}>
+                  <div className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center">
+                    <button className="text-white font-semibold">Edit</button>
+                  </div>
+                </Link>
               )}
             </div>
             {adminStatusToken && (
               <div className="flex">
-                <div className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center">
-                  <button className="text-white font-semibold">Assign</button>
-                </div>
-                <div className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2 ml-2 hover:bg-grlink rounded-lg flex items-center justify-center">
+                {editAccess ? (
+                  <div
+                    onClick={() => setEditAccess(false)}
+                    className="bg-dpink hover:cursor-pointer ml-2 mt-3 px-3 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
+                  >
+                    <button className="text-white font-semibold">Done</button>
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setEditAccess(true)}
+                    className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center"
+                  >
+                    <button className="text-white font-semibold">Assign</button>
+                  </div>
+                )}
+                <div
+                  onClick={handleDelete}
+                  className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2 ml-2 hover:bg-grlink rounded-lg flex items-center justify-center"
+                >
                   <button className="text-white font-semibold">X</button>
                 </div>
               </div>

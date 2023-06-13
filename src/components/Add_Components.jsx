@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Add_Compo = () => {
+  const [componentsName, setComponentsName] = useState("");
+  const [qunatity, setQuantity] = useState(Number);
+  const [fileHandler, setFileHandler] = useState();
+  const handleFile = (e) => {
+    setFileHandler(e.target.files[0].name);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log(componentsName, fileHandler, qunatity);
+  };
+
   return (
     <div className="">
       <div className=" compo flex   pt-16    text-white font-semibold ">
@@ -33,36 +45,44 @@ const Add_Compo = () => {
                     <input
                       type="text"
                       name="name"
+                      onChange={(e) => setComponentsName(e.target.value)}
                       placeholder="DC motor"
                       className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
-            text-black focus:outline-none my-6 border-bl"
+    text-black focus:outline-none my-6 border-bl"
                     />
                     <h3 className="text-white font-semibold roll ">
                       Upload Image
                     </h3>
 
-                    <div className=" flex justify-items-start ">
+                    <div className=" flex flex-col justify-items-center">
                       <input
-                        type="photo"
+                        type="file"
+                        onChange={handleFile}
                         name=""
                         placeholder=""
-                        className="p-1  pr-32 pl-2  border-2 rounded-sm
-                      text-black focus:outline-none my-6 border-bl hover:cursor-pointer"
+                        className="p-1  w-full  text-sm pl-2  bg-white border-2 rounded-sm
+              text-black focus:outline-none my-2 border-bl hover:cursor-pointer"
                       />
-                      <BsCameraFill className=" fill-black h-6 w-6 absolute mt-7 ml-2 hover:cursor-pointer " />
+                      <h1 className="text-grlink">{fileHandler}</h1>
                     </div>
 
-                    <h3>Quantity:</h3>
-                    <input type="number" name="" className="text-black mt-4" />
+                    <h3 className="text-white mt-3">Quantity:</h3>
+                    <input
+                      type="number"
+                      name=""
+                      onChange={(e) => setQuantity(e.target.value)}
+                      className="text-black mt-4"
+                    />
                   </div>
                 </form>
               </div>
 
-              <Link to={"/"}>
-                <div className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center mt-7 ml-32">
-                  <button className="text-white font-semibold ">Submit</button>
-                </div>
-              </Link>
+              <div
+                onClick={handleSubmit}
+                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center mt-7 ml-32"
+              >
+                <button className="text-white font-semibold ">Done</button>
+              </div>
             </div>
           </div>
         </div>

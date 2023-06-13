@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sidebar_Data } from "../assets/data/Sidebar_Data";
 import { NavLink } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ getAllData }) {
+  const uniqueCategories = [
+    ...new Set(getAllData.map((item) => item.category)),
+  ];
+
+  // Store unique categories in an array in React state
+
   return (
     <React.Fragment>
       <section>
@@ -13,11 +19,11 @@ function Sidebar() {
           >
             All Categories
           </div>
-          {Sidebar_Data.map((item, index) => {
+          {uniqueCategories.map((item, index) => {
             return (
               <div key={index}>
                 <NavLink
-                  to={item.path}
+                  to={index == 0 ? "/" : item}
                   style={({ isActive }) => {
                     return {
                       backgroundColor: isActive ? "#B54297" : "",
@@ -27,7 +33,7 @@ function Sidebar() {
                   className="hover:cursor-pointer px-4 hover:bg-dpink w-full h-12 flex justify-start border-b-2 border-gray-500  items-center text-white 
                  font-semibold "
                 >
-                  <span>{item.title}</span>
+                  <span>{item}</span>
                 </NavLink>
               </div>
             );
