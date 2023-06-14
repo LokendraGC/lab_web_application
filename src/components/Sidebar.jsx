@@ -11,8 +11,8 @@ function Sidebar({ getAllData }) {
 
   return (
     <React.Fragment>
-      <section>
-        <div className="">
+      <section className="">
+        <div className="  ">
           <div
             className=" w-full h-12 flex justify-start border-b-2 border-gray-500  bg-crit text-grlink 
                  font-semibold px-4 pt-2"

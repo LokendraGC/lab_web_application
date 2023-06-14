@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,20 +10,53 @@ const Login = () => {
   const statusToken = useUserStore((state) => state.token);
   const checkToken = useUserStore((state) => state.checkStatus);
   const addToken = useUserStore((state) => state.addToken);
+  const [uniqueValues, setUniqueValues] = useState([]);
+  const [uniqueId, setUniqueId] = useState(false);
+
   const setRoll = useUserStore((state) => state.setRoll);
+  const setStudId = useUserStore((state) => state.setStudId);
   useEffect(() => {
     checkToken();
+
     if (statusToken) {
       navigate("/");
     }
   }, [statusToken, checkToken]);
+  const getStudent = async (rollNo) => {
+    const { data } = await axios.get(
+      "http://localhost:8000/students/components"
+    );
+    try {
+      const matchingItem = await data.find(
+        (item) => item.studentID.studentID === rollNo
+      );
 
+      if (matchingItem) {
+        setUniqueValues((prevState) => ({
+          ...prevState,
+          id: matchingItem?.studentID.id,
+          name: matchingItem?.studentID.studentID,
+        }));
+        setUniqueId(true);
+      } else {
+        setUniqueId(false);
+
+        alert("You are not registered");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleLogin = (e) => {
     e.preventDefault();
-    setRoll(rollNo);
-    addToken(rollNo);
-    console.log(rollNo);
-    setRollNo("");
+    getStudent(rollNo);
+    console.log(uniqueValues);
+
+    if (uniqueId) {
+      setRoll(uniqueValues?.name);
+      addToken(uniqueValues?.name);
+      setStudId(uniqueValues);
+    }
   };
 
   return (
@@ -42,13 +76,12 @@ const Login = () => {
             text-black focus:outline-none my-6 border-bl"
                 />
               </div>
+              <div className="mx-auto">
+                <button className="text-white mx-auto font-semibold bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center">
+                  Login
+                </button>
+              </div>
             </form>
-          </div>
-
-          <div className="">
-            <button className="text-white font-semibold bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center">
-              Login
-            </button>
           </div>
         </div>
       </div>

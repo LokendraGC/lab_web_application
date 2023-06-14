@@ -11,6 +11,7 @@ function Navbar() {
   const checkUserToken = useUserStore((state) => state.checkStatus);
   const rollNo = useUserStore((state) => state.rollNo);
   const removeUserToken = useUserStore((state) => state.removeToken);
+  const studId = useUserStore((state) => state.studId);
 
   const adminStatusToken = useAdminStore((state) => state.token);
   const checkAdminToken = useAdminStore((state) => state.checkStatus);
@@ -19,10 +20,7 @@ function Navbar() {
   useEffect(() => {
     checkUserToken();
     checkAdminToken();
-    console.log("user", userStatusToken);
-    console.log("admin", adminStatusToken);
-    console.log(rollNo);
-  }, []);
+  }, [userStatusToken, adminStatusToken, checkUserToken, checkAdminToken]);
 
   const handleLogout = () => {
     if (adminStatusToken) removeAdminToken();
@@ -42,8 +40,10 @@ function Navbar() {
         </div>
       </Link>
       {userStatusToken && !adminStatusToken && (
-        <>
-          <div>{rollNo?.length > 0 && rollNo}</div>
+        <div className="flex space-x-4">
+          <Link to={"/assigned/" + studId.id}>
+            {rollNo?.length > 0 && rollNo}
+          </Link>
           <div
             className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col"
             onClick={handleLogout}
@@ -53,16 +53,15 @@ function Navbar() {
             </div>
             Logout
           </div>
-        </>
+        </div>
       )}
       {adminStatusToken && !userStatusToken && (
         <div className="flex justify-center items-center space-x-5">
-         
           <Link to="/createuser">
             <h1>Create</h1>
           </Link>
 
-          <Link to={"/admincheck"}>
+          <Link to={"/checkout"}>
             <h1 className="hover:cursor-pointer">Checkout</h1>
           </Link>
 

@@ -4,6 +4,7 @@ import { useAdminStore, useUserStore } from "../../store";
 import { Link } from "react-router-dom";
 import authApi from "./hooks/authApi";
 import axios from "axios";
+import { createComponent, deleteComponent } from "./hooks/getComponents";
 
 const Card = ({ id, src, title, qty }) => {
   //   const components = [
@@ -89,24 +90,11 @@ const Card = ({ id, src, title, qty }) => {
 
   const checkUserToken = useUserStore((state) => state.checkStatus);
   const checkAdminToken = useAdminStore((state) => state.checkStatus);
-  async function deleteItem(id) {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NDMzMzA2LCJpYXQiOjE2ODY1NjkzMDYsImp0aSI6ImI0YWQwNmQzYjJiZjQ4MmM4ZDMyNzFjODM5NDY1NjI5IiwidXNlcl9pZCI6MX0.Ahntz3zXZ038d4PHj5FwX_3kxIidSEftVk3VRXLIAJc";
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      await axios.delete(`http://localhost:8000/components/${id}`, headers);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const { mutate: deleteItem } = deleteComponent();
 
   const handleDelete = (e) => {
     e.preventDefault();
-    deleteItem(id);
+    deleteItem({ id });
   };
 
   useEffect(() => {
@@ -130,10 +118,10 @@ const Card = ({ id, src, title, qty }) => {
           className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700"
         />
         <div className="px-6 py-4 bg-prlink flex items-center flex-col">
-          <p className="title text-lg font-semibold  mt-3">{title}</p>
+          <p className="title text-xl font-semibold  mt-3">{title}</p>
 
           <p className="text-lg font-semibold text-white mt-3">
-            {!editAccess && qty}
+            Quantity: {!editAccess && qty}
             {editAccess && (
               <input
                 type="number"

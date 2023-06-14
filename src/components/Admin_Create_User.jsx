@@ -1,21 +1,41 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAdminStore } from "../../store";
 
 const Admin_Create_User = () => {
   const [rollNo, setRollNo] = useState("");
   // const statusToken = useStateStore((state) => state.token);
   // const checkToken = useStateStore((state) => state.checkStatus);
   // const addToken = useStateStore((state) => state.addToken);
+
+  const token = useAdminStore((state) => state.tokenValue);
+  const createUser = async () => {
+    try {
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:8000/students/",
+        { studentID: rollNo },
+        headers
+      );
+      alert(data?.message);
+    } catch (err) {
+      alert(err);
+    }
+  };
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(rollNo);
+    createUser();
     // addToken(rollNo);
     // console.log(statusToken);
   };
   const { pathname } = useLocation();
   const [activeCreate, setActiveCreate] = useState(false);
   useEffect(() => {
-    console.log(pathname);
     if (pathname == "/createuser") {
       setActiveCreate(true);
     } else {
@@ -24,10 +44,12 @@ const Admin_Create_User = () => {
   }, [pathname]);
 
   return (
-    <div className="">
+    <div className=" ">
       <div className="compo flex  justify-start pt-16  text-white font-semibold  ">
-        <div className="compo  sidebar w-1/4 h-56 ml-5
-         border-2 border-gray-600 mt-16 ">
+        <div
+          className="compo  sidebar w-1/4 h-56 ml-5
+         border-2 border-gray-600 mt-16 "
+        >
           <div className="  space-y-6 ">
             <h3 className="create border-b-2 border-gray-500  p-3 bg-crit">
               Create
@@ -52,7 +74,7 @@ const Admin_Create_User = () => {
         </div>
 
         <div className="login flex justify-center  w-1/2 ml-4  items-center">
-          <div className="box h-60 w-96 shadow-xl">
+          <div className="box h-60 w-96  shadow-xl">
             <div className="pt-4 flex flex-col items-center">
               <h3 className="text-white font-semibold roll">Roll No.</h3>
               <div className="flex justify-center ">

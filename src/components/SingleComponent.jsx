@@ -1,23 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import { updateComponent } from "./hooks/getComponents";
 
 const SingleComponent = ({ list }) => {
-  const [componentsName, setComponentsName] = useState("");
-  const [qunatity, setQuantity] = useState(Number);
-  const [fileHandler, setFileHandler] = useState(list?.image);
+  const [componentsName, setComponentsName] = useState(list?.name);
+  const [quantity, setQuantity] = useState(list?.quantity);
+  const [fileHandler, setFileHandler] = useState(
+    "http:localhost:8000" + list?.image
+  );
+  const { mutate: putComponent } = updateComponent();
+  const [category, setCategory] = useState(list?.category);
+  const navigate = useNavigate();
   const handleFile = (e) => {
-    setFileHandler(e.target.files[0].name);
+    setFileHandler(e.target.files[0]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(componentsName, fileHandler, qunatity);
+    try {
+      putComponent({
+        id: list.id,
+        name: componentsName,
+        image: fileHandler,
+        quantity: quantity,
+        category: category,
+      });
+    } catch (err) {
+      alert("Something is wrong");
+    } // consol
+    navigate("/");
   };
+  useEffect(() => {
+    console.log(fileHandler);
+  }, [fileHandler]);
 
   return (
     <div className="login flex justify-center  w-1/2 ml-4  items-center">
-      <div className="box h-96 w-96  shadow-xl">
+      <div className="box  w-96  shadow-xl">
         <div className="pt-4 flex flex-col items-start">
           <div className="flex justify-center ">
             <form action="">
@@ -34,6 +54,16 @@ const SingleComponent = ({ list }) => {
                   className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
     text-black focus:outline-none my-6 border-bl"
                 />
+                <h3 className="text-white font-semibold roll ">Category</h3>
+                <input
+                  type="text"
+                  name="name"
+                  defaultValue={list.category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="DC motor"
+                  className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
+    text-black focus:outline-none my-6 border-bl"
+                />
                 <h3 className="text-white font-semibold roll ">Upload Image</h3>
 
                 <div className=" flex flex-col justify-items-center">
@@ -45,7 +75,9 @@ const SingleComponent = ({ list }) => {
                     className="p-1  w-full  text-sm pl-2  bg-white border-2 rounded-sm
               text-black focus:outline-none my-2 border-bl hover:cursor-pointer"
                   />
-                  <h1 className="text-grlink">{fileHandler}</h1>
+                  <h1 className="text-grlink">
+                    {(fileHandler && fileHandler.name) || list.image}
+                  </h1>
                 </div>
 
                 <h3 className="text-white mt-3">Quantity:</h3>

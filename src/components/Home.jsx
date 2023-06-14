@@ -3,11 +3,9 @@ import "./style.css";
 import { GrSearch } from "react-icons/gr";
 import Main_Page from "./Main_Page";
 
-
-
 function Home() {
   return (
-    <div className="main h-screen w-full">
+    <div className="main  w-full">
       <div className="flex justify-center ">
         <form action="">
           <div className="flex justify-end">
@@ -22,11 +20,8 @@ function Home() {
           </div>
         </form>
       </div>
-      
+
       <Main_Page />
-
-      <div className="main w-full"></div>
-
     </div>
   );
 }

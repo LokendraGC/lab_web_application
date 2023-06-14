@@ -2,22 +2,39 @@ import React, { useEffect, useState } from "react";
 import { BsCameraFill } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { createComponent } from "./hooks/getComponents";
 
 const Add_Compo = () => {
   const [componentsName, setComponentsName] = useState("");
-  const [qunatity, setQuantity] = useState(Number);
-  const [fileHandler, setFileHandler] = useState();
+  const [quantity, setQuantity] = useState(Number);
+  const [category, setCategory] = useState("");
+  const [fileHandler, setFileHandler] = useState({});
   const handleFile = (e) => {
-    setFileHandler(e.target.files[0].name);
+    // console.log(e.target.files);
+    setFileHandler(e.target.files[0]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(componentsName, fileHandler, qunatity);
+    try {
+      postComponent({
+        name: componentsName,
+        image: fileHandler,
+        quantity: quantity,
+        category: category,
+      });
+    } catch (err) {
+      alert("Something is wrong");
+    } // console.log(componentsName, fileHandler, qunatity);
+    setCategory("");
+    setFileHandler();
+    setComponentsName("");
+    setQuantity("");
   };
 
   const { pathname } = useLocation();
   const [activeCreate, setActiveCreate] = useState(false);
+  const { mutate: postComponent } = createComponent();
   useEffect(() => {
     console.log(pathname);
     if (pathname == "/addcompo") {
@@ -29,7 +46,7 @@ const Add_Compo = () => {
   return (
     <div className="">
       <div className=" compo flex  justify-start pt-16  text-white font-semibold border-gray-500  ">
-        <div className="compo  sidebar w-1/4 h-56 ml-5  border-2 border-gray-600 mt-16 ">
+        <div className="compo  sidebar w-1/4 h-40 ml-5  border-2 border-gray-600 mt-16 ">
           <div className="  space-y-6 ">
             <h3 className="create border-b-2 border-gray-500  p-3 bg-crit">
               Create
@@ -52,7 +69,7 @@ const Add_Compo = () => {
         </div>
 
         <div className="login flex justify-center  w-1/2 ml-4  items-center">
-          <div className="box h-96 w-96  shadow-xl">
+          <div className="box  w-96  shadow-xl">
             <div className="pt-4 flex flex-col items-start">
               <div className="flex justify-center ">
                 <form action="">
@@ -63,8 +80,19 @@ const Add_Compo = () => {
                     <input
                       type="text"
                       name="name"
+                      value={componentsName}
                       onChange={(e) => setComponentsName(e.target.value)}
                       placeholder="DC motor"
+                      className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
+    text-black focus:outline-none my-6 border-bl"
+                    />
+                    <h3 className="text-white font-semibold roll ">Category</h3>
+                    <input
+                      type="text"
+                      name="name"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      placeholder="Electronics"
                       className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
     text-black focus:outline-none my-6 border-bl"
                     />
@@ -81,13 +109,16 @@ const Add_Compo = () => {
                         className="p-1  w-full  text-sm pl-2  bg-white border-2 rounded-sm
               text-black focus:outline-none my-2 border-bl hover:cursor-pointer"
                       />
-                      <h1 className="text-grlink">{fileHandler}</h1>
+                      <h1 className="text-grlink">
+                        {fileHandler && fileHandler.name}
+                      </h1>
                     </div>
 
                     <h3 className="text-white mt-3">Quantity:</h3>
                     <input
                       type="number"
                       name=""
+                      value={quantity}
                       onChange={(e) => setQuantity(e.target.value)}
                       className="text-black mt-4"
                     />
