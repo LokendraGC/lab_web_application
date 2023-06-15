@@ -5,19 +5,20 @@ import brush_dc from "../assets/images/Motors/brush_dc.jpg";
 import coaxial from "../assets/images/cables/coaxial.jpg";
 import arduino from "../assets/images/basic_elc_cmp/Arduino2.jpg";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useAdminStore } from "../../store";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAdminStore, useUserStore } from "../../store";
 import axios from "axios";
 
 const CheckOut = () => {
   const [accessToken, setAccessToken] = useState(false);
   const [editAccess, setEditAccess] = useState(false);
   const [qtyAccess, setQtyAccess] = useState(Number);
-  const getValues = useAdminStore((state) => state.studentAssigned);
   const [components, setComponents] = useState([]);
   const tokens = useAdminStore((state) => state.tokenValue);
+  const checkAdmin = useAdminStore((state) => state.token);
+  const checkUser = useUserStore((state) => state.token);
   const { id: params } = useParams();
-
+  const navigate = useNavigate();
   const getAssignedComponents = async (studentID) => {
     const { data } = await axios.post(
       `http://localhost:8000/students/components`,
@@ -28,8 +29,14 @@ const CheckOut = () => {
     setComponents(await data);
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    console.log(checkAdmin, checkUser);
+    if (!checkAdmin && !checkUser) {
+      navigate("/");
+    }
+  }, [checkAdmin, checkUser]);
+
+  useEffect(() => {
+    if (tokens) {
       setAccessToken(true);
     } else {
       setAccessToken(false);

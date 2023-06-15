@@ -3,6 +3,7 @@ import { BsCameraFill } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { createComponent } from "./hooks/getComponents";
+import { useAdminStore, useUserStore } from "../../store";
 
 const Add_Compo = () => {
   const [componentsName, setComponentsName] = useState("");
@@ -35,6 +36,14 @@ const Add_Compo = () => {
   const { pathname } = useLocation();
   const [activeCreate, setActiveCreate] = useState(false);
   const { mutate: postComponent } = createComponent();
+  const navigate = useNavigate();
+  const checkAdmin = useAdminStore((state) => state.token);
+  const checkUser = useUserStore((state) => state.token);
+  useEffect(() => {
+    if (!checkAdmin && !checkUser) {
+      navigate("/");
+    }
+  }, [checkAdmin, checkUser]);
   useEffect(() => {
     console.log(pathname);
     if (pathname == "/addcompo") {

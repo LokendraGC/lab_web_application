@@ -5,11 +5,6 @@ import { getAllComponents } from "./hooks/getComponents";
 
 const Main_Page = () => {
   const { data } = getAllComponents();
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   return (
     <React.Fragment>
       <section>

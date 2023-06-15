@@ -1,6 +1,18 @@
-import React from "react";
-import Card from "./Card";
+import React, { Suspense, useState } from "react";
+import { useUserStore } from "../../store.jsx";
+import { useEffect } from "react";
+const Card = React.lazy(() => import("./Card.jsx"));
+
 const CardWrapper = ({ base_title, list }) => {
+  const [allLists, setAllLists] = useState([]);
+  const query = useUserStore((state) => state.query);
+  useEffect(() => {
+    if (list) {
+      let l = list.filter((a) => a.name.toLowerCase().includes(query));
+      setAllLists(l);
+    }
+  }, [list, query]);
+
   return (
     <div className="">
       <div
@@ -16,16 +28,15 @@ const CardWrapper = ({ base_title, list }) => {
           className="w-full grid grid-cols-2 sm:grid-cols-3 
           gap-8 text-center py-8 px-8 sm:px-0 "
         >
-          {list &&
-            list.map((c) => (
-              <Card
-                key={c.id}
-                src={c.image}
-                id={c.id}
-                title={c.name}
-                qty={c.quantity}
-              />
-            ))}
+          {allLists.length > 0 ? (
+            allLists.map((c) => (
+              <Suspense key={c.id} fallback={<div>Loading</div>}>
+                <Card src={c.image} id={c.id} title={c.name} qty={c.quantity} />
+              </Suspense>
+            ))
+          ) : (
+            <h1>Nothing to Show</h1>
+          )}
         </div>
       </div>
     </div>

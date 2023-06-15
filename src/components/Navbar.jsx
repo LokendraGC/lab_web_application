@@ -5,6 +5,7 @@ import { MdLogin } from "react-icons/md";
 import { BiLogOut } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useAdminStore, useUserStore } from "../../store";
+import axios from "axios";
 
 function Navbar() {
   const userStatusToken = useUserStore((state) => state.token);
@@ -23,8 +24,18 @@ function Navbar() {
   }, [userStatusToken, adminStatusToken, checkUserToken, checkAdminToken]);
 
   const handleLogout = () => {
-    if (adminStatusToken) removeAdminToken();
-    else {
+    if (adminStatusToken) {
+      const logoutFunc = async () => {
+        const headers = {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        };
+        await axios.post("http://localhost:8000/user/logout", {}, headers);
+      };
+      logoutFunc();
+      removeAdminToken();
+    } else {
       removeUserToken();
     }
   };
@@ -41,6 +52,7 @@ function Navbar() {
       </Link>
       {userStatusToken && !adminStatusToken && (
         <div className="flex space-x-4">
+          {console.log(studId)}
           <Link to={"/assigned/" + studId.id}>
             {rollNo?.length > 0 && rollNo}
           </Link>

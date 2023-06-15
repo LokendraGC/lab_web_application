@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../components/style.css";
 import { useAdminStore, useUserStore } from "../../store";
 import { Link } from "react-router-dom";
-import authApi from "./hooks/authApi";
 import axios from "axios";
 import { createComponent, deleteComponent } from "./hooks/getComponents";
 
@@ -113,6 +112,7 @@ const Card = ({ id, src, title, qty }) => {
       {/* {components.map(({ id, src, title, qty }) => ( */}
       <div key={id} className="max-w-sm rounded overflow-hidden shadow-lg">
         <img
+          loading="lazy"
           src={`http://localhost:8000${src}`}
           alt=""
           className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700"

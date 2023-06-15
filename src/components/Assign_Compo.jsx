@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
-import authApi from "./hooks/authApi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GrSearch } from "react-icons/gr";
-import { useAdminStore } from "../../store";
+import { useAdminStore, useUserStore } from "../../store";
+import axios from "axios";
 // import { Assigned_Data } from "../assets/data/Assigned_Data";
 // import { Sidebar_Data } from "../assets/data/Sidebar_Data";
 
 const Assign_Compo = () => {
+  const [data, setData] = useState();
+
   const [uniqueValues, setUniqueValues] = useState([]);
-  const data = authApi("http://localhost:8000/students/components", "get");
+  const navigate = useNavigate();
+  const checkAdmin = useAdminStore((state) => state.token);
+  const checkUser = useUserStore((state) => state.token);
+  useEffect(() => {
+    if (!checkAdmin && !checkUser) {
+      navigate("/");
+    }
+  }, [checkAdmin, checkUser]);
+  const getAssignedComponents = async () => {
+    const { data: getData } = await axios.get(
+      `http://localhost:8000/students/components`
+    );
+    setData(await getData);
+  };
+  useEffect(() => {
+    getAssignedComponents();
+  }, []);
 
   useEffect(() => {
     if (data) {

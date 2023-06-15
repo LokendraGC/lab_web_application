@@ -4,10 +4,10 @@ import { GrSearch } from "react-icons/gr";
 // hal ko lagi yo component use vaxaina
 
 function App() {
-        const activeLink =
-          "hover:cursor-pointer hover:bg-pink-600 w-full h-14 flex justify-start items-center text-white pl-4 font-semibold bg-pink-600";
-        const normalLink =
-          "hover:cursor-pointer hover:bg-pink-600 w-full h-14 flex justify-start items-center text-white pl-4 font-semibold";
+  const activeLink =
+    "hover:cursor-pointer hover:bg-pink-600 w-full h-14 flex justify-start items-center text-white pl-4 font-semibold bg-pink-600";
+  const normalLink =
+    "hover:cursor-pointer hover:bg-pink-600 w-full h-14 flex justify-start items-center text-white pl-4 font-semibold";
 
   return (
     <>
@@ -25,7 +25,6 @@ function App() {
         </div>
       </form>
 
-      <h1 className="text-3xl font-bold ">Hello world!</h1>
       <div>
         <NavLink
           to={item.path}

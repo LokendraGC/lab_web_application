@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GrSearch } from "react-icons/gr";
 import { RxCross2 } from "react-icons/rx";
 import dcmotor from "../assets/images/Motors/brush_less.jpg";
 import bluetooth from "../assets/images/Sensors/bluetooth_module.jpg";
 import jumper from "../assets/images/cables/f_f_jumper.jpg";
+import { useAdminStore, useUserStore } from "../../store";
+import { useNavigate } from "react-router-dom";
 
 const AdminCheckOut = () => {
   const [items, setItems] = useState([{}]);
@@ -33,7 +35,14 @@ const AdminCheckOut = () => {
       qty: "4",
     },
   ];
-
+  const navigate = useNavigate();
+  const checkAdmin = useAdminStore((state) => state.token);
+  const checkUser = useUserStore((state) => state.token);
+  useEffect(() => {
+    if (!checkAdmin && !checkUser) {
+      navigate("/");
+    }
+  }, [checkAdmin, checkUser]);
   return (
     <div className="admincheck text-white">
       <div className="flex justify-center pt-12"></div>

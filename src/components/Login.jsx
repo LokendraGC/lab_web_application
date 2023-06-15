@@ -26,17 +26,19 @@ const Login = () => {
     const { data } = await axios.get(
       "http://localhost:8000/students/components"
     );
+
     try {
       const matchingItem = await data.find(
         (item) => item.studentID.studentID === rollNo
       );
 
       if (matchingItem) {
-        setUniqueValues((prevState) => ({
-          ...prevState,
+        setRoll(matchingItem?.studentID.studentID);
+        addToken(matchingItem?.studentID.studentID);
+        setStudId({
           id: matchingItem?.studentID.id,
           name: matchingItem?.studentID.studentID,
-        }));
+        });
         setUniqueId(true);
       } else {
         setUniqueId(false);
@@ -50,13 +52,6 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     getStudent(rollNo);
-    console.log(uniqueValues);
-
-    if (uniqueId) {
-      setRoll(uniqueValues?.name);
-      addToken(uniqueValues?.name);
-      setStudId(uniqueValues);
-    }
   };
 
   return (

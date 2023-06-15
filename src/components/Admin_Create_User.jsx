@@ -1,14 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { useAdminStore } from "../../store";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAdminStore, useUserStore } from "../../store";
 
 const Admin_Create_User = () => {
   const [rollNo, setRollNo] = useState("");
   // const statusToken = useStateStore((state) => state.token);
   // const checkToken = useStateStore((state) => state.checkStatus);
   // const addToken = useStateStore((state) => state.addToken);
-
+  const navigate = useNavigate();
+  const checkAdmin = useAdminStore((state) => state.token);
+  const checkUser = useUserStore((state) => state.token);
+  useEffect(() => {
+    if (!checkAdmin && !checkUser) {
+      navigate("/");
+    }
+  }, [checkAdmin, checkUser]);
   const token = useAdminStore((state) => state.tokenValue);
   const createUser = async () => {
     try {
