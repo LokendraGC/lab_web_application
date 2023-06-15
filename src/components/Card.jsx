@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { createComponent, deleteComponent } from "./hooks/getComponents";
 
-const Card = ({ id, src, title, qty }) => {
+const Card = ({ id, src, title, qty, category }) => {
   //   const components = [
   //     {
   //       id: 1,
@@ -120,7 +120,7 @@ const Card = ({ id, src, title, qty }) => {
         <div className="px-6 py-4 bg-prlink flex items-center flex-col">
           <p className="title text-xl font-semibold  mt-3">{title}</p>
 
-          <p className="text-lg font-semibold text-white mt-3">
+          <p className="text-md  text-white mt-3">
             Quantity: {!editAccess && qty}
             {editAccess && (
               <input
@@ -132,6 +132,9 @@ const Card = ({ id, src, title, qty }) => {
               />
             )}{" "}
           </p>
+          {category && (
+            <p className="text-md  text-white ">Category: {category}</p>
+          )}
           <div className="flex justify-between w-full">
             <div>
               {adminStatusToken && (

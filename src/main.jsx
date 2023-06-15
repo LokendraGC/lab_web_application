@@ -16,6 +16,7 @@ import Assign_Compo from "./components/Assign_Compo";
 import AdminCheckOut from "./components/Admin_CheckOut";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Search from "./components/Search";
 
 const client = new QueryClient({
   defaultOptions: {

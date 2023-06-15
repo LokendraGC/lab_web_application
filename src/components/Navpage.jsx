@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import CardWrapper from "./CardWrapper";
 
 import SingleComponent from "./SingleComponent";
+import Search from "./Search";
 
 const Navpage = ({ getAllData }) => {
   const uniqueCategories = [
@@ -18,6 +19,8 @@ const Navpage = ({ getAllData }) => {
           list={basic_electrical}
           
           />} /> */}
+          <Route path="/" element={<Search />} />
+
           {uniqueCategories.map((item, index) => (
             <Route
               key={index}

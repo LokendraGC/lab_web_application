@@ -20,16 +20,16 @@ const CardWrapper = ({ base_title, list }) => {
            justify-center w-full h-full text-white"
       >
         <div>
-          <p className="text-4xl font-bold inline border-gray-500">
+          <p className="text-4xl font-bold inline px-8  border-gray-500">
             {base_title}
           </p>
         </div>
         <div
           className="w-full grid grid-cols-2 sm:grid-cols-3 
-          gap-8 text-center py-8 px-8 sm:px-0 "
+          gap-8 text-center py-8 px-8  "
         >
-          {allLists.length > 0 ? (
-            allLists.map((c) => (
+          {list && list.length > 0 ? (
+            list.map((c) => (
               <Suspense key={c.id} fallback={<div>Loading</div>}>
                 <Card src={c.image} id={c.id} title={c.name} qty={c.quantity} />
               </Suspense>

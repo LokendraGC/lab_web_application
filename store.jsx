@@ -59,8 +59,7 @@ const userStore = (set) => ({
   rollNo: "",
   token: false,
   studId: {},
-  query: "",
-  getQuery: (q) => set({ query: q }),
+
   setStudId: (data) => set({ studId: data }),
   setRoll: (number) => set({ rollNo: number }),
   addToken: (token) => {

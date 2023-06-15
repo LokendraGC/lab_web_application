@@ -17,6 +17,13 @@ const CheckOut = () => {
   const tokens = useAdminStore((state) => state.tokenValue);
   const checkAdmin = useAdminStore((state) => state.token);
   const checkUser = useUserStore((state) => state.token);
+  useEffect(() => {
+    console.log(checkAdmin, checkUser);
+    if (!checkAdmin && !checkUser) {
+      navigate("/");
+    }
+  }, [checkAdmin, checkUser]);
+
   const { id: params } = useParams();
   const navigate = useNavigate();
   const getAssignedComponents = async (studentID) => {
@@ -28,12 +35,6 @@ const CheckOut = () => {
     );
     setComponents(await data);
   };
-  useEffect(() => {
-    console.log(checkAdmin, checkUser);
-    if (!checkAdmin && !checkUser) {
-      navigate("/");
-    }
-  }, [checkAdmin, checkUser]);
 
   useEffect(() => {
     if (tokens) {
