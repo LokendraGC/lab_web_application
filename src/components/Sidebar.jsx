@@ -14,45 +14,48 @@ function Sidebar({ getAllData }) {
   return (
     <React.Fragment>
       <section className="">
-        <div className="  ">
+        <div className="  flex md:flex-col md:w-full  ">
           <div
-            className=" w-full h-12 flex justify-start border-b-2 border-gray-500  bg-crit text-grlink 
-                 font-semibold px-4 pt-2"
+            className=" w-max md:w-full h-12 flex justify-start border-b-2 border-gray-500  bg-crit text-grlink 
+                 font-semibold px-4 pt-2 "
           >
             Categories
           </div>
-          <NavLink
-            to={"/"}
-            style={({ isActive }) => {
-              return {
-                backgroundColor: isActive ? "#B54297" : "",
-                color: isActive ? "white" : "white",
-              };
-            }}
-            className="hover:cursor-pointer px-4 hover:bg-dpink w-full h-12 flex justify-start border-b-2 border-gray-500  items-center text-white 
+
+          <div className="flex flex-row overflow-auto md:flex-col  w-full">
+            <NavLink
+              to={"/"}
+              style={({ isActive }) => {
+                return {
+                  backgroundColor: isActive ? "#B54297" : "",
+                  color: isActive ? "white" : "white",
+                };
+              }}
+              className="hover:cursor-pointer px-4 hover:bg-dpink w-full h-12 flex justify-start border-b-2 border-gray-500  items-center text-white 
                  font-semibold "
-          >
-            <span>All Categories</span>
-          </NavLink>
-          {uniqueCategories.map((item, index) => {
-            return (
-              <div key={index}>
-                <NavLink
-                  to={item}
-                  style={({ isActive }) => {
-                    return {
-                      backgroundColor: isActive ? "#B54297" : "",
-                      color: isActive ? "white" : "white",
-                    };
-                  }}
-                  className="hover:cursor-pointer px-4 hover:bg-dpink w-full h-12 flex justify-start border-b-2 border-gray-500  items-center text-white 
+            >
+              <span>All Categories</span>
+            </NavLink>
+            {uniqueCategories.map((item, index) => {
+              return (
+                <div key={index}>
+                  <NavLink
+                    to={item}
+                    style={({ isActive }) => {
+                      return {
+                        backgroundColor: isActive ? "#B54297" : "",
+                        color: isActive ? "white" : "white",
+                      };
+                    }}
+                    className="hover:cursor-pointer px-4 hover:bg-dpink w-full h-12 flex justify-start border-b-2 border-gray-500  items-center text-white 
                  font-semibold "
-                >
-                  <span>{item}</span>
-                </NavLink>
-              </div>
-            );
-          })}
+                  >
+                    <span>{item}</span>
+                  </NavLink>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     </React.Fragment>

@@ -35,20 +35,23 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ReactQueryDevtools className="absolute bottom-0" initialIsOpen={false} />
       <BrowserRouter>
         <Navbar />
-        <Routes>
-          <Route path="/checkout" element={<AdminCheckOut />} />
-          <Route path="/assigned" element={<Assign_Compo />} />
-          <Route path="/assigned/:id" element={<CheckOut />} />
-          <Route path="/createuser" element={<Admin_Create_User />} />
-          <Route path="/addcompo" element={<Add_Compo />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/details" element={<Details />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/*" exact element={<Home />} />
-        </Routes>
+        <div className="h-screen z-50">
+          <Routes>
+            <Route path="/checkout" element={<AdminCheckOut />} />
+            <Route path="/assigned" element={<Assign_Compo />} />
+            <Route path="/assigned/:id" element={<CheckOut />} />
+            <Route path="/createuser" element={<Admin_Create_User />} />
+            <Route path="/addcompo" element={<Add_Compo />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/details" element={<Details />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/*" exact element={<Home />} />
+          </Routes>
+        </div>
+
+        <Footer />
       </BrowserRouter>
-      <Footer />
     </QueryClientProvider>
   </React.StrictMode>
 );

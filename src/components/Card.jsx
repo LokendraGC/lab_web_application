@@ -110,7 +110,10 @@ const Card = ({ id, src, title, qty, category }) => {
   return (
     <>
       {/* {components.map(({ id, src, title, qty }) => ( */}
-      <div key={id} className="max-w-sm rounded overflow-hidden shadow-lg">
+      <div
+        key={id}
+        className="  md:w-full md:max-w-sm rounded overflow-hidden shadow-lg"
+      >
         <img
           loading="lazy"
           src={`http://localhost:8000${src}`}
@@ -135,7 +138,7 @@ const Card = ({ id, src, title, qty, category }) => {
           {category && (
             <p className="text-md  text-white ">Category: {category}</p>
           )}
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between items-center w-full">
             <div>
               {adminStatusToken && (
                 <Link to={`/${title}/${id}`}>

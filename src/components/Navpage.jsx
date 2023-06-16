@@ -13,7 +13,7 @@ const Navpage = ({ getAllData }) => {
   const uniqueTitle = [...new Set(getAllData.map((item) => item.name))];
   return (
     <React.Fragment>
-      <section className=" h-screen">
+      <section className=" ">
         <Routes>
           {/* <Route path="/admin" element={<CardWrapper 
           list={basic_electrical}

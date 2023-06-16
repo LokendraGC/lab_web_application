@@ -4,7 +4,7 @@ import "./style.css";
 
 const Footer = () => {
   return (
-    <div className="w-full   footer flex justify-center space-x-8">
+    <div className="md:w-full   footer flex justify-center space-x-8">
       <div className="foot  w-full h-20 px-8 ">
         <div className=" pt-7 flex justify-center items-center text-white">
           <div className="pt-1 pr-1">
