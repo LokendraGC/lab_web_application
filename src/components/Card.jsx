@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { createComponent, deleteComponent } from "./hooks/getComponents";
 
-const Card = ({ id, src, title, qty, category }) => {
+const Card = ({ id, src, title: component, qty, category }) => {
   //   const components = [
   //     {
   //       id: 1,
@@ -80,11 +80,11 @@ const Card = ({ id, src, title, qty, category }) => {
   //       qty: "Quantity:",
   //     },
   //   ];
-
   const [accessToken, setAccessToken] = useState(false);
   const [editAccess, setEditAccess] = useState(false);
   const [qtyAccess, setQtyAccess] = useState(Number);
   const adminStatusToken = useAdminStore((state) => state.token);
+  const addComponent = useAdminStore((state) => state.addComponents);
   const userStatusToken = useUserStore((state) => state.token);
 
   const checkUserToken = useUserStore((state) => state.checkStatus);
@@ -106,6 +106,10 @@ const Card = ({ id, src, title, qty, category }) => {
     checkUserToken();
     checkAdminToken();
   }, []);
+  const handleAssign = () => {
+    setEditAccess(false);
+    addComponent(id, src, component, (qty = parseInt(qtyAccess)), category);
+  };
 
   return (
     <>
@@ -121,7 +125,7 @@ const Card = ({ id, src, title, qty, category }) => {
           className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700"
         />
         <div className="px-6 py-4 bg-prlink flex items-center flex-col">
-          <p className="title text-xl font-semibold  mt-3">{title}</p>
+          <p className="title text-xl font-semibold  mt-3">{component}</p>
 
           <p className="text-md  text-white mt-3">
             Quantity: {!editAccess && qty}
@@ -141,7 +145,7 @@ const Card = ({ id, src, title, qty, category }) => {
           <div className="flex justify-between items-center w-full">
             <div>
               {adminStatusToken && (
-                <Link to={`/${title}/${id}`}>
+                <Link to={`/${component}/${id}`}>
                   <div className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center">
                     <button className="text-white font-semibold">Edit</button>
                   </div>
@@ -152,7 +156,7 @@ const Card = ({ id, src, title, qty, category }) => {
               <div className="flex">
                 {editAccess ? (
                   <div
-                    onClick={() => setEditAccess(false)}
+                    onClick={handleAssign}
                     className="bg-dpink hover:cursor-pointer ml-2 mt-3 px-3 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
                   >
                     <button className="text-white font-semibold">Done</button>

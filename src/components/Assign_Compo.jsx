@@ -31,12 +31,14 @@ const Assign_Compo = () => {
   useEffect(() => {
     if (data) {
       const uniqueIds = Array.from(
-        new Set(data.map((item) => item.studentID.id))
+        new Set(data.map((item) => item.studentID.studentID))
       );
       const formattedData = uniqueIds.map((id) => {
-        const matchingItem = data.find((item) => item.studentID.id === id);
+        const matchingItem = data.find(
+          (item) => item.studentID.studentID === id
+        );
         return {
-          id: matchingItem.studentID.id,
+          // id: matchingItem.studentID.id,
           name: matchingItem.studentID.studentID,
         };
       });
@@ -83,7 +85,7 @@ const Assign_Compo = () => {
             allLists.map((stud, i) => (
               <Link
                 // onClick={() => handleData(stud)}
-                to={`/assigned/${stud.id}`}
+                to={`/assigned/${stud.name}`}
                 key={i}
               >
                 <h3 className="bg-dpink h-9 w-36 text-center pt-1 hover:cursor-pointer">

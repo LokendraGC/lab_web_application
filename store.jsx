@@ -4,10 +4,13 @@ const adminStore = (set) => ({
   tokenValue: "",
 
   token: false,
-  components: [{ id: "", pic: "", title: "", quantity: 0 }],
-  addComponents: (id, pic, title, quantity) =>
+  components: [],
+  addComponents: (id, pic, component, quantity, category) =>
     set((state) => ({
-      components: [...state.components, { id, pic, title, quantity }],
+      components: [
+        ...state.components,
+        { id, pic, component, quantity, category },
+      ],
     })),
   deleteComponent: (id) =>
     set((state) => ({
@@ -65,14 +68,14 @@ const userStore = (set) => ({
   addToken: (token) => {
     if (!localStorage.getItem("userToken")) {
       localStorage.setItem("userToken", token);
-      set(() => ({ token: true }));
+      set(() => ({ token: true, rollNo: token }));
     }
   },
   checkStatus: () => {
     if (localStorage.getItem("userToken")) {
-      set(() => ({ token: true }));
+      set(() => ({ token: true, rollNo: localStorage.getItem("userToken") }));
     } else {
-      set(() => ({ token: false }));
+      set(() => ({ token: false, rollNo: "" }));
     }
   },
   removeToken: () => {

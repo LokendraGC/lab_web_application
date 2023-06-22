@@ -160,7 +160,47 @@ export const deleteComponent = () => {
     },
   });
 };
+export const assignComponent = () => {
+  const token = useAdminStore((state) => state.tokenValue);
+  const queryClient = useQueryClient();
+  const assignAComponent = async (postData) => {
+    try {
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
+      const { data } = await axios.post(
+        `http://localhost:8000/students/postComponent`,
+        postData,
+        headers
+      );
+      if (await data.message) alert(await data?.message);
+      else {
+        let errValues = Object.entries(data);
+        for (let i = 0; i < errValues.length; i++) {
+          alert(errValues[i]);
+        }
+        // await data.map((i) => console.log(i));
+      }
+      return await data;
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  return useMutation({
+    mutationFn: assignAComponent,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["/components"],
+        // refetch all inactive stale data
+      });
+    },
+  });
+};
 // export const useUpdateUserFavourites = ({ username }) => {
 //   const queryClient = useQueryClient();
 

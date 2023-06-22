@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAdminStore, useUserStore } from "../../store";
 
-const Admin_Create_User = () => {
+const ChangePassword = () => {
   const [rollNo, setRollNo] = useState("");
   // const statusToken = useStateStore((state) => state.token);
   // const checkToken = useStateStore((state) => state.checkStatus);
@@ -113,4 +113,4 @@ const Admin_Create_User = () => {
   );
 };
 
-export default Admin_Create_User;
+export default ChangePassword;

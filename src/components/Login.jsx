@@ -31,12 +31,10 @@ const Login = () => {
       const matchingItem = await data.find(
         (item) => item.studentID.studentID === rollNo
       );
-
       if (matchingItem) {
         setRoll(matchingItem?.studentID.studentID);
         addToken(matchingItem?.studentID.studentID);
         setStudId({
-          id: matchingItem?.studentID.id,
           name: matchingItem?.studentID.studentID,
         });
         setUniqueId(true);

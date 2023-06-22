@@ -21,6 +21,10 @@ function Navbar() {
   useEffect(() => {
     checkUserToken();
     checkAdminToken();
+    if (userStatusToken && adminStatusToken) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userToken");
+    }
   }, [userStatusToken, adminStatusToken, checkUserToken, checkAdminToken]);
 
   const handleLogout = () => {
@@ -43,7 +47,7 @@ function Navbar() {
   return (
     <div
       className="header flex justify-between items-center w-full
-    h-20 px-8 text-white sticky top-0 shadow-lg"
+    h-20 px-8 text-white sticky top-0 shadow-lg z-50"
     >
       <Link to="/">
         <div className="flex align-middle hover:cursor-pointer">
@@ -52,10 +56,7 @@ function Navbar() {
       </Link>
       {userStatusToken && !adminStatusToken && (
         <div className="flex space-x-4">
-          {console.log(studId)}
-          <Link to={"/assigned/" + studId.id}>
-            {rollNo?.length > 0 && rollNo}
-          </Link>
+          <Link to={"/assigned/" + rollNo}>{rollNo && rollNo}</Link>
           <div
             className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col"
             onClick={handleLogout}
@@ -73,14 +74,15 @@ function Navbar() {
             <h1>Create</h1>
           </Link>
 
-          <Link to={"/checkout"}>
-            <h1 className="hover:cursor-pointer">Checkout</h1>
-          </Link>
-
           <Link to={"/assigned"}>
             <h1 className="hover:cursor-pointer">Assigned</h1>
           </Link>
-
+          <Link to={"/checkout"}>
+            <h1 className="hover:cursor-pointer">Checkout</h1>
+          </Link>
+          <Link to={"/settings/updateuser"}>
+            <h1 className="hover:cursor-pointer">Settings</h1>
+          </Link>
           <div
             className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col"
             onClick={handleLogout}
@@ -102,6 +104,17 @@ function Navbar() {
           </div>
         </Link>
       )}
+      {/* {adminStatusToken && userStatusToken && (
+        <div
+          className="pr-20 font-bold hover:cursor-pointer grid grid-flow-col"
+          onClick={handleLogout}
+        >
+          <div className="pt-1 pr-1">
+            <BiLogOut />
+          </div>
+          Logout
+        </div>
+      )} */}
     </div>
   );
 }

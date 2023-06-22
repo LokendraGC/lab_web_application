@@ -18,7 +18,7 @@ function Home() {
   return (
     <div className="main relative bg-green-500 w-full">
       <Main_Page />
-      {toggle && <Footer />}
+      {/* {toggle && <Footer view={true} />} */}
     </div>
   );
 }

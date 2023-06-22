@@ -17,6 +17,11 @@ const CheckOut = () => {
   const tokens = useAdminStore((state) => state.tokenValue);
   const checkAdmin = useAdminStore((state) => state.token);
   const checkUser = useUserStore((state) => state.token);
+  const param = useParams();
+  useEffect(() => {
+    console.log(param);
+  }, [param]);
+
   useEffect(() => {
     console.log(checkAdmin, checkUser);
     if (!checkAdmin && !checkUser) {
@@ -33,6 +38,7 @@ const CheckOut = () => {
         studentID,
       }
     );
+    console.log(data);
     setComponents(await data);
   };
 
@@ -49,31 +55,31 @@ const CheckOut = () => {
 
   return (
     <>
-      <div className="assign text-white font-bold text-xl pl-24 pt-10">
+      <div className="assign text-white font-bold text-xl pl-8 mt-10">
         Components for {components[0]?.studentID.studentID}
       </div>
 
       <div
-        className="pt-12 assign flex flex-wrap
+        className="mt-5 assign grid grid-cols-4  gap-y-5  items-start
                text-center   sm:px-0"
       >
-        {components.map(({ component }, i) => (
+        {components.map((component, i) => (
           <div
             key={i}
-            className="max-w-sm rounded overflow-hidden shadow-lg pl-24 "
+            className="max-w-sm rounded overflow-hidden shadow-lg p-8 "
           >
             <img
-              src={`http://localhost:8000` + component.image}
+              src={`http://localhost:8000` + component.component.image}
               alt=""
               className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700 "
             />
             <div className="px-6 py-4 bg-prlink flex items-center flex-col">
               <p className="text-xl font-semibold text-grlink  ">
-                {component.name}
+                {component.component.name}
               </p>
               <div className="px-6  bg-prlink flex items-center my-2 justify-center flex-col">
                 <p className="text-lg font-semibold text-white ">
-                  Date of Issue: {component.dateOfIssue}
+                  Date of Issue: {component.component.dateOfIssue}
                 </p>
                 <p className="text-lg font-semibold text-white ">
                   {" "}
@@ -81,7 +87,7 @@ const CheckOut = () => {
                   {editAccess && (
                     <input
                       type="number"
-                      defaultValue={"2"}
+                      defaultValue={component?.quantity}
                       className="text-black"
                       onChange={(e) => setQtyAccess(e.target.value)}
                     />
