@@ -7,8 +7,8 @@ const CardWrapper = ({ base_title, list }) => {
   return (
     <div className="  overflow-auto">
       <div
-        className="max-w-screen-lg mx-auto pr-8 flex flex-col 
-        justify-center w-full h-full text-white"
+        className=" max-w-screen-lg mx-auto pr-8 flex flex-col 
+        justify-center w-full h-full text-white "
       >
         <div>
           <p className="text-4xl font-bold inline px-8  border-gray-500">

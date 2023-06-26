@@ -116,7 +116,7 @@ const Card = ({ id, src, title: component, qty, category }) => {
       {/* {components.map(({ id, src, title, qty }) => ( */}
       <div
         key={id}
-        className="  md:w-full md:max-w-sm rounded overflow-hidden shadow-lg"
+        className="  md:w-full md:max-w-sm rounded overflow-hidden shadow-lg "
       >
         <img
           loading="lazy"

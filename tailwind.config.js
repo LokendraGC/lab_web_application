@@ -8,6 +8,7 @@ export default {
         grlink: "#11A79C",
         prlink: "#1F2631",
         crit: "#0E1621",
+        head: "#131B25",
       },
     },
   },

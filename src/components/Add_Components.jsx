@@ -53,9 +53,9 @@ const Add_Compo = () => {
     }
   }, [pathname]);
   return (
-    <div className="">
+    <div className="max-sm:flex ">
       <div className=" compo flex  justify-start pt-16  text-white font-semibold border-gray-500  ">
-        <div className="compo  sidebar w-1/4 h-40 ml-5  border-2 border-gray-600 mt-16 ">
+        <div className="compo  sidebar w-1/4 h-40 ml-5  border-2 border-gray-600 mt-16 max-sm:h-24 max-sm:w-36 ">
           <div className="  space-y-6 ">
             <h3 className="create border-b-2 border-gray-500  p-3 bg-crit">
               Create
@@ -77,8 +77,8 @@ const Add_Compo = () => {
           </div>
         </div>
 
-        <div className="login flex justify-center  w-1/2 ml-4  items-center">
-          <div className="box  w-96  shadow-xl">
+        <div className="login flex justify-center  w-1/2 ml-4  items-center max-sm:pr-3 ">
+          <div className="box  w-96  shadow-xl max-sm:mt-64 max-sm:mr-[540px]">
             <div className="pt-4 flex flex-col items-start">
               <div className="flex justify-center ">
                 <form action="">
@@ -137,9 +137,9 @@ const Add_Compo = () => {
 
               <div
                 onClick={handleSubmit}
-                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center mt-7 ml-32"
+                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center mt-7 ml-32 max-sm:mb-5"
               >
-                <button className="text-white font-semibold ">Done</button>
+                <button className="text-white font-semibold">Done</button>
               </div>
             </div>
           </div>

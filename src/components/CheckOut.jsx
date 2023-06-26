@@ -55,13 +55,16 @@ const CheckOut = () => {
 
   return (
     <>
-      <div className="assign text-white font-bold text-xl pl-8 mt-10">
+      <div
+        className="assign text-white font-bold text-xl pl-8 mt-10
+       "
+      >
         Components for {components[0]?.studentID.studentID}
       </div>
 
       <div
-        className="mt-5 assign grid grid-cols-4  gap-y-5  items-start
-               text-center   sm:px-0"
+        className="mt-5 max-sm:bg-crit grid grid-cols-4  gap-y-5  items-start
+               text-center   sm:px-0 max-sm:flex max-sm"
       >
         {components.map((component, i) => (
           <div

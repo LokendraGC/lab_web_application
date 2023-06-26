@@ -10,8 +10,10 @@
 body {
   background-color: rgb(14, 22, 33);
 }
-.header {
-  background-color: rgb(19, 27, 37);
+
+
+div .heade{
+  width: 200px;
 }
 
 .cheekout {
