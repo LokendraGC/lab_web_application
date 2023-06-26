@@ -60,14 +60,16 @@ const UpdateUser = () => {
          max-sm:ml-8 max-sm:border-0"
         >
           <div className="space-y-6 max-sm:w-[200]">
-            <h3 className="create border-b-2 border-gray-500  p-3 bg-crit
-            max-sm:border-0">
+            <h3
+              className="create border-b-2 border-gray-500  p-3 bg-crit
+            max-sm:border-0"
+            >
               Settings
             </h3>
 
             <Link to={"/settings/updateuser"}>
               <h3
-                className={`border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink ${
+                className={`border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink  ${
                   activeCreate ? "bg-dpink" : "bg-none"
                 }`}
               >
@@ -87,8 +89,8 @@ const UpdateUser = () => {
           className="login flex justify-center  w-1/2 ml-4  items-center max-sm:pr-[187px] 
         "
         >
-          <div className="box h-60 w-96  shadow-xl  max-sm:mt-[300px]">
-            <div className="pt-4 flex flex-col items-center">
+          <div className="box h-60 w-96  shadow-xl  max-sm:mt-[300px] ">
+            <div className="pt-4 flex flex-col items-center ">
               <h3 className="text-white font-semibold roll">Username.</h3>
               <div className="flex justify-center ">
                 <form action="">
@@ -122,9 +124,9 @@ const UpdateUser = () => {
 
               <div
                 onClick={handleLogin}
-                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center "
+                className="mt-12  bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center "
               >
-                <button className="text-white font-semibold">Update</button>
+                <button className="text-white font-semibold ">Update</button>
               </div>
             </div>
           </div>

@@ -89,24 +89,22 @@ function Navbar() {
         )}
         {adminStatusToken && !userStatusToken && (
           <div
-            className={`flex justify-center   w-full items-center space-x-5 
-          md:flex-row flex-col  md:space-y-0 max-sm:space-y-7
+            className={`flex justify-center  w-full items-center space-x-9 
+          md:flex-row flex-col  md:space-y-0 max-sm:space-y-7 
           ${
-            open
-              ? "max-sm: "
-              : " max-sm:text-xl max-sm:pt-12 max-sm:text-center w-full"
+            open ? "" : " max-sm:text-xl max-sm:pt-12 max-sm:text-center w-full"
           }`}
           >
-            <Link to="/createuser" className="w-full">
+            <Link to="/createuser" className={`${open ? "" : "max-sm:w-full"}`}>
               <h1
                 onClick={handleLinkClick}
-                className={` ${open ? "max-sm:hidden " : ""}`}
+                className={` ${open ? "max-sm:hidden " : "max-sm:pl-6"}`}
               >
                 Create
               </h1>
             </Link>
 
-            <Link to={"/assigned"} className="w-full">
+            <Link to={"/assigned"} className={`${open ? "" : "max-sm:w-full"}`}>
               <h1
                 onClick={handleLinkClick}
                 className={`hover:cursor-pointer ${
@@ -116,7 +114,7 @@ function Navbar() {
                 Assigned
               </h1>
             </Link>
-            <Link to={"/checkout"} className="w-full">
+            <Link to={"/checkout"} className={`${open ? "" : "max-sm:w-full"}`}>
               <h1
                 onClick={handleLinkClick}
                 className={`hover:cursor-pointer ${
@@ -126,7 +124,10 @@ function Navbar() {
                 Checkout
               </h1>
             </Link>
-            <Link to={"/settings/updateuser"} className="w-full">
+            <Link
+              to={"/settings/updateuser"}
+              className={`${open ? "" : "max-sm:w-full"}`}
+            >
               <h1
                 onClick={handleLinkClick}
                 className={`hover:cursor-pointer ${
@@ -155,24 +156,29 @@ function Navbar() {
               {open ? (
                 <AiOutlineMenu className="max-sm:mr-3 " />
               ) : (
-                <IoCloseSharp  className="max-sm:mt-16"/>
+                <IoCloseSharp className="max-sm:mt-16" />
               )}
             </div>
           </div>
         )}
         {!adminStatusToken && !userStatusToken && (
-          <Link to={"/login"}>
-            <div
-              className={`pr-20 font-bold hover:cursor-pointer grid grid-flow-col max-sm:pr-0 max-sm:mt-5${
-                open ? "" : " "
-              }`}
-            >
-              <div className="pt-1 pr-1">
-                <MdLogin />
+          <>
+            <Link to={'/about'}>
+              <div className="md:pl-[700px] max-sm:pt-10 max-sm:pl-16" >About Us</div>
+            </Link>
+            <Link to={"/login"}>
+              <div
+                className={`max-sm:pt-5 pr-20 font-bold hover:cursor-pointer grid grid-flow-col max-sm:pr-0 max-sm:mt-5${
+                  open ? "" : " "
+                }`}
+              >
+                <div className="pt-1 pr-1">
+                  <MdLogin />
+                </div>
+                Login
               </div>
-              Login
-            </div>
-          </Link>
+            </Link>
+          </>
         )}
       </div>
     </>
