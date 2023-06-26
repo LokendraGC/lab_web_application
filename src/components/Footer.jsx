@@ -4,9 +4,9 @@ import "./style.css";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="sticky top-[100vh]">
       <div
-        className={`md:w-full  footer flex  justify-start items-end h-screen space-x-8`}
+        className={`md:w-full  footer flex  justify-start items-end space-x-8`}
       >
         <div className="foot  w-full h-20 px-8 ">
           <div className=" pt-7 flex justify-center items-center text-white">

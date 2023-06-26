@@ -32,7 +32,7 @@ const UpdateUser = () => {
       );
       alert(data?.message);
     } catch (err) {
-      alert(err);
+      alert(err.response.data.detail ?? err);
     }
   };
   const handleLogin = (e) => {

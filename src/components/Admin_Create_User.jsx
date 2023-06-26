@@ -31,7 +31,7 @@ const Admin_Create_User = () => {
       );
       alert(data?.message);
     } catch (err) {
-      alert(err);
+      alert(err.response.data.detail ?? err);
     }
   };
   const handleLogin = (e) => {

@@ -36,7 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ReactQueryDevtools className="absolute bottom-0" initialIsOpen={false} />
       <BrowserRouter>
         <Navbar />
-        <div className="   ">
+        <div className="min-h-screen overflow-hidden flex flex-col ">
           <Routes>
             <Route path="/checkout" element={<AdminCheckOut />} />
             <Route path="/assigned" element={<Assign_Compo />} />

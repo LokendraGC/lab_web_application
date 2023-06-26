@@ -55,7 +55,7 @@ export const createComponent = () => {
 
       return await data;
     } catch (err) {
-      alert(err);
+      alert(err.response.data.detail ?? err);
     }
   };
 
@@ -87,9 +87,9 @@ export const updateComponent = () => {
       form.append("name", id);
       form.append("name", name);
       form.append("quantity", quantity);
-      form.append("image", image);
+      if (image !== undefined) form.append("image", image);
       form.append("category", category);
-      const { data } = await axios.put(
+      const { data } = await axios.patch(
         `http://localhost:8000/components/${id}/`,
         form,
         headers
@@ -100,11 +100,10 @@ export const updateComponent = () => {
         for (let i = 0; i < errValues.length; i++) {
           alert(errValues[i]);
         }
-        // await data.map((i) => console.log(i));
       }
       return await data;
     } catch (err) {
-      alert(err);
+      alert(err.response.data.detail ?? err);
     }
   };
 
@@ -146,7 +145,7 @@ export const deleteComponent = () => {
       }
       return await data;
     } catch (err) {
-      alert(err);
+      alert(err.response.data.detail ?? err);
     }
   };
 
@@ -186,7 +185,7 @@ export const assignComponent = () => {
       }
       return await data;
     } catch (err) {
-      alert(err);
+      alert(err.response.data.detail ?? err);
     }
   };
 
@@ -196,6 +195,8 @@ export const assignComponent = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["/components"],
+        type: "inactive", // only invalidate inactive queries
+        refetchType: "inactive",
         // refetch all inactive stale data
       });
     },

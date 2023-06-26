@@ -82,7 +82,7 @@ const Card = ({ id, src, title: component, qty, category }) => {
   //   ];
   const [accessToken, setAccessToken] = useState(false);
   const [editAccess, setEditAccess] = useState(false);
-  const [qtyAccess, setQtyAccess] = useState(Number);
+  const [qtyAccess, setQtyAccess] = useState((Number = 0));
   const adminStatusToken = useAdminStore((state) => state.token);
   const addComponent = useAdminStore((state) => state.addComponents);
   const userStatusToken = useUserStore((state) => state.token);
@@ -128,12 +128,14 @@ const Card = ({ id, src, title: component, qty, category }) => {
           <p className="title text-xl font-semibold  mt-3">{component}</p>
 
           <p className="text-md  text-white mt-3">
-            Quantity: {!editAccess && qty}
+            Quantity:{" "}
+            {!editAccess && parseInt(qty) < 0 ? 0 : qty - parseInt(qtyAccess)}
             {editAccess && (
               <input
                 type="number"
                 defaultValue={"0"}
-                max={qty}
+                min={0}
+                max={parseInt(qty)}
                 className="text-black w-1/6 pl-1"
                 onChange={(e) => setQtyAccess(e.target.value)}
               />

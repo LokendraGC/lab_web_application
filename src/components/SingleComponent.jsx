@@ -6,9 +6,7 @@ import { updateComponent } from "./hooks/getComponents";
 const SingleComponent = ({ list }) => {
   const [componentsName, setComponentsName] = useState(list?.name);
   const [quantity, setQuantity] = useState(list?.quantity);
-  const [fileHandler, setFileHandler] = useState(
-    "http:localhost:8000" + list?.image
-  );
+  const [fileHandler, setFileHandler] = useState();
   const { mutate: putComponent } = updateComponent();
   const [category, setCategory] = useState(list?.category);
   const navigate = useNavigate();
@@ -86,6 +84,7 @@ const SingleComponent = ({ list }) => {
                   name=""
                   onChange={(e) => setQuantity(e.target.value)}
                   defaultValue={list?.quantity}
+                  min={0}
                   className="text-black mt-4"
                 />
               </div>

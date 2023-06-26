@@ -38,7 +38,6 @@ const CheckOut = () => {
         studentID,
       }
     );
-    console.log(data);
     setComponents(await data);
   };
 
@@ -52,7 +51,66 @@ const CheckOut = () => {
   useEffect(() => {
     getAssignedComponents(params);
   }, [params, tokens]);
+  const updateQuantity = async (name) => {
+    console.log({
+      studentID: components[0]?.studentID.studentID,
+      quantity: qtyAccess,
+      returned: false,
+      component: name,
+    });
+    try {
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${tokens}`,
+        },
+      };
 
+      const { data } = await axios.put(
+        "http://localhost:8000/students/postComponent",
+        {
+          studentID: components[0]?.studentID.studentID,
+          quantity: qtyAccess,
+          returned: false,
+          component: name,
+        },
+        headers
+      );
+      console.log(await data);
+      alert(data?.message);
+    } catch (err) {
+      alert(err.response.data.detail ?? err);
+    }
+  };
+  const returnComp = async (name, qty) => {
+    try {
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${tokens}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        "http://localhost:8000/students/postComponent",
+        {
+          studentID: components[0]?.studentID.studentID,
+          quantity: parseInt(qty) - qtyAccess,
+          returned: true,
+          component: name,
+        },
+        headers
+      );
+      alert(data?.message);
+    } catch (err) {
+      alert(err.response.data.detail ?? err);
+    }
+  };
+  const handleAccess = (name) => {
+    setEditAccess(false);
+    updateQuantity(name);
+  };
+  const handleReturn = ({ name, qty }) => {
+    returnComp(name, qty);
+  };
   return (
     <>
       <div className="assign text-white font-bold text-xl pl-8 mt-10">
@@ -83,11 +141,16 @@ const CheckOut = () => {
                 </p>
                 <p className="text-lg font-semibold text-white ">
                   {" "}
-                  Quantity: {component.quantity}
+                  Quantity:{" "}
+                  {!editAccess && parseInt(component.quantity) < 0
+                    ? 0
+                    : component.quantity - parseInt(qtyAccess)}
                   {editAccess && (
                     <input
                       type="number"
-                      defaultValue={component?.quantity}
+                      defaultValue={"0"}
+                      min={0}
+                      max={parseInt(component.quantity)}
                       className="text-black"
                       onChange={(e) => setQtyAccess(e.target.value)}
                     />
@@ -110,7 +173,9 @@ const CheckOut = () => {
 
                     {accessToken && editAccess && (
                       <div
-                        onClick={() => setEditAccess(false)}
+                        onClick={() =>
+                          handleAccess((name = component.component.name))
+                        }
                         className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center w-20"
                       >
                         <button className="text-white font-semibold ">
@@ -121,7 +186,15 @@ const CheckOut = () => {
                   </div>
 
                   {accessToken && (
-                    <div className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center">
+                    <div
+                      onClick={() =>
+                        handleReturn({
+                          name: component.component.name,
+                          qty: component.quantity,
+                        })
+                      }
+                      className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center"
+                    >
                       <button className="text-white font-semibold">
                         Return
                       </button>
