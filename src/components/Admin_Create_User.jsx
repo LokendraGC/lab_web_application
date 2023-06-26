@@ -51,11 +51,11 @@ const Admin_Create_User = () => {
   }, [pathname]);
 
   return (
-    <div className=" ">
-      <div className="compo flex  justify-start pt-16  text-white font-semibold  ">
+    <div className="max-sm:flex max-sm:overflow-hidden">
+      <div className="compo flex  justify-start pt-16  text-white font-semibold ">
         <div
-          className="compo  sidebar w-1/4  ml-5
-         border-2 border-gray-600 mt-16 "
+          className="compo sidebar w-1/4  ml-5
+         border-2 border-gray-600 mt-16 max-sm:h-24 max-sm:w-36 "
         >
           <div className="  space-y-6 ">
             <h3 className="create border-b-2 border-gray-500  p-3 bg-crit">
@@ -64,7 +64,8 @@ const Admin_Create_User = () => {
 
             <Link to={"/createuser"}>
               <h3
-                className={`border-b-2 border-gray-500 p-3  hover:cursor-pointer hover:bg-dpink ${
+                className={`border-b-2 border-gray-500 p-3  
+                hover:cursor-pointer hover:bg-dpink ${
                   activeCreate ? "bg-dpink" : "bg-none"
                 }`}
               >
@@ -80,13 +81,13 @@ const Admin_Create_User = () => {
           </div>
         </div>
 
-        <div className="login flex justify-center  w-1/2 ml-4  items-center">
-          <div className="box h-60 w-96  shadow-xl">
+        <div className="login flex justify-center  w-1/2 ml-4  items-center ">
+          <div className="box h-60 w-96  shadow-xl max-sm:mt-64 max-sm:mr-[540px]">
             <div className="pt-4 flex flex-col items-center">
               <h3 className="text-white font-semibold roll">Roll No.</h3>
               <div className="flex justify-center ">
                 <form action="">
-                  <div className="flex justify-end">
+                  <div className="flex justify-end ">
                     <input
                       onChange={(e) => setRollNo(e.target.value)}
                       type="text"
@@ -101,7 +102,7 @@ const Admin_Create_User = () => {
 
               <div
                 onClick={handleLogin}
-                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
+                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center "
               >
                 <button className="text-white font-semibold">Register</button>
               </div>

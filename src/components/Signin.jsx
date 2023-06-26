@@ -35,9 +35,11 @@ const Signin = () => {
   };
 
   return (
-    <div className="login flex justify-center  items-center">
-      <div className="box p-5 w-96 mt-40 shadow-xl">
-        <div className="pt-4 flex flex-col items-center">
+
+    
+    <div className="login flex justify-center  items-center ">
+      <div className=" box p-5 w-96 mt-40 shadow-xl max-sm:pt-0bg-green-500">
+        <div className="pt-4 flex flex-col items-center ">
           <h3 className="text-white font-semibold roll text-lg ">Sign In</h3>
           <div className="flex justify-center ">
             <form action="" onSubmit={handleLogin}>
@@ -62,7 +64,7 @@ const Signin = () => {
             text-black focus:outline-none my-6 border-bl"
                 />
               </div>
-              <button className="mx-auto mb-3 bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center text-white font-semibold">
+              <button className="mx-auto mb-3 bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center text-white font-semibold ">
                 Login
               </button>
             </form>

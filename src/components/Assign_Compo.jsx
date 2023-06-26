@@ -63,7 +63,7 @@ const Assign_Compo = () => {
     <div>
       <div className="assign text-white mt-10 ">
         <form action=""></form>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center max-sm:mt-28">
           <input
             type="text"
             name="name"
@@ -71,11 +71,14 @@ const Assign_Compo = () => {
             onChange={handleQuery}
             placeholder="SEC076BEI012"
             className="p-1  pr-52 pl-2 border-2 rounded-md
-            text-black focus:outline-none my-4 border-bl"
+            text-black focus:outline-none my-4 border-bl max-sm:w-80 max-sm:ml-5 "
           />
           <GrSearch className="h-6 w-6 relative right-8  mr-3 search " />
         </div>
-        <h3 className="font-semibold text-2xl pl-24">Components Assigned</h3>
+
+        <h3 className="font-semibold text-2xl pl-24 max-sm:pl-12 max-sm:pt-16 ">
+          Components Assigned
+        </h3>
 
         <div
           className="assign flex bg-dpink space-x-8 pl-24 items-center mt-8 font-semibold 

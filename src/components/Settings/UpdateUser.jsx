@@ -52,14 +52,16 @@ const UpdateUser = () => {
   }, [pathname]);
 
   return (
-    <div className=" ">
+    <div className=" max-sm: ">
       <div className="compo flex  justify-start pt-16  text-white font-semibold  ">
         <div
           className="compo  sidebar w-1/4  ml-5
-         border-2 border-gray-600 mt-16 "
+         border-2 border-gray-600 mt-16 max-sm:h-24 max-sm:w-full 
+         max-sm:ml-8 max-sm:border-0"
         >
-          <div className="  space-y-6 ">
-            <h3 className="create border-b-2 border-gray-500  p-3 bg-crit">
+          <div className="space-y-6 max-sm:w-[200]">
+            <h3 className="create border-b-2 border-gray-500  p-3 bg-crit
+            max-sm:border-0">
               Settings
             </h3>
 
@@ -81,8 +83,11 @@ const UpdateUser = () => {
           </div>
         </div>
 
-        <div className="login flex justify-center  w-1/2 ml-4  items-center">
-          <div className="box h-60 w-96  shadow-xl">
+        <div
+          className="login flex justify-center  w-1/2 ml-4  items-center max-sm:pr-[187px] 
+        "
+        >
+          <div className="box h-60 w-96  shadow-xl  max-sm:mt-[300px]">
             <div className="pt-4 flex flex-col items-center">
               <h3 className="text-white font-semibold roll">Username.</h3>
               <div className="flex justify-center ">
@@ -100,7 +105,7 @@ const UpdateUser = () => {
                 </form>
               </div>
               <h3 className="text-white font-semibold roll">Email</h3>
-              <div className="flex justify-center ">
+              <div className="flex justify-center max-sm:mb-12">
                 <form action="">
                   <div className="flex justify-end">
                     <input
@@ -117,7 +122,7 @@ const UpdateUser = () => {
 
               <div
                 onClick={handleLogin}
-                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center"
+                className="bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center "
               >
                 <button className="text-white font-semibold">Update</button>
               </div>

@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import dcmotor from "../assets/images/Motors/brush_less.jpg";
 import bluetooth from "../assets/images/Sensors/bluetooth_module.jpg";
 import jumper from "../assets/images/cables/f_f_jumper.jpg";
+import {RxCross1} from 'react-icons/rx'
 import { useAdminStore, useUserStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { assignComponent } from "./hooks/getComponents";
@@ -87,33 +88,34 @@ const AdminCheckOut = () => {
           className=" text-black rounded-sm outline-none px-2 py-1"
         />
       </div>
-      <div className="flex items-center justify-center space-x-28 pr- font-semibold pt-10 ">
-        <span className="pr-">SN.</span>
-        <span className="pl-4">Name</span>
-        <span className="pr-">Quantity</span>
-        <span className="pl-6">Delete</span>
-      </div>
-      {updatedData.map(({ id, pic, component, quantity }, i) => (
-        <div
+
+      <div className=" pt-24 flex justify-center">
+        <table class="min-w- divide-y divide-gray-200 mr-12 ml-12 ">
+          <thead className=" text-white">
+            <tr>
+              <th class="py-3 px-6  text-center">SN.</th>
+              <th class="py-3 px-6  text-center">Name</th>
+              <th class="py-3 px-6 text-center">Quantity</th>
+              <th class="py-3 px-6 text-center ">Delete</th>
+            </tr>
+          </thead>
+          {updatedData.map(({id,pic,component,quantity},i)=>(
+
+          <tbody
           key={i}
-          className="bg-prlink text-xl cheekout flex items-center justify-center space-x-12 border border-gray-500 mr-80 mt-10 ml-80 h-16"
-        >
-          <span className="">{i + 1}</span>
-          <div className=" pt-1 pb-1 ">
-            {/* <img src={src} alt="bluetooth" className="borders  h- w-16  " /> */}
-          </div>
-          <span className="pr-8 borders">{component}</span>
-
-          <span className="pr-32 borders ">{quantity}</span>
-
-          <div className="borders">
-            <RxCross2
-              onClick={() => deleteComponent(id)}
-              className="crush h-7 w-7 bg-dpink hover:cursor-pointer"
-            />
-          </div>
-        </div>
-      ))}
+          class="bg-prlink text-white divide-y divide-gray-200">
+            <tr>
+              <td class="py-4 px-6 text-center pt-">{id}</td>
+              <td class="py-4 px-6 text-center">{component}</td>
+              <td class="py-4 px-6 text-center">{quantity}</td>
+              <td class="py-4 px-6 text-center crush h-5 w-5 bg-dpink hover:cursor-pointer">
+                <RxCross1 className="h-7 w-7 ml-3 " />
+              </td>
+            </tr>
+          </tbody>
+          ))}
+        </table>
+      </div>
 
       <button
         onClick={handleProceed}

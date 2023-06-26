@@ -34,7 +34,7 @@ const SingleComponent = ({ list }) => {
   }, [fileHandler]);
 
   return (
-    <div className="login flex justify-center  w-1/2 ml-4  items-center">
+    <div className="login flex justify-center  w-1/2 ml-4  items-center max-sm:pl-[155px]">
       <div className="box  w-96  shadow-xl">
         <div className="pt-4 flex flex-col items-start">
           <div className="flex justify-center ">

@@ -26,7 +26,7 @@ const Search = () => {
 
   return (
     <div
-      className="  -mt-4 max-w-screen-lg mx-auto pr-8 flex flex-col 
+      className=" max-sm:ml-5 -mt-4 max-w-screen-lg mx-auto pr-8 flex flex-col 
     justify-center w-full h-full text-white "
     >
       <div className="flex justify-center mb-2 ml-7 md:ml-0">
