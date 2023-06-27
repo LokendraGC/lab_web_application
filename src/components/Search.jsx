@@ -29,7 +29,7 @@ const Search = () => {
       className=" max-sm:ml-5 -mt-4 max-w-screen-lg mx-auto pr-8 flex flex-col 
     justify-center w-full h-full text-white "
     >
-      <div className="flex justify-center mb-2 ml-7 md:ml-0">
+      <div className="flex justify-start mb-2 md:pl-7 md:ml-0 max-sm:ml-8">
         <input
           type="text"
           name="name"
