@@ -16,6 +16,7 @@ const adminStore = (set) => ({
     set((state) => ({
       components: state.components.filter((c) => c.id != id),
     })),
+  resetComponent: () => set({ components: [] }),
 
   addToken: (token) => {
     if (!localStorage.getItem("token")) {

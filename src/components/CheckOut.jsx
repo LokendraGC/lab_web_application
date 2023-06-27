@@ -8,19 +8,15 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAdminStore, useUserStore } from "../../store";
 import axios from "axios";
+import { getAStudentComponents, returnComponent } from "./hooks/getComponents";
 
 const CheckOut = () => {
   const [accessToken, setAccessToken] = useState(false);
   const [editAccess, setEditAccess] = useState(false);
   const [qtyAccess, setQtyAccess] = useState(Number);
-  const [components, setComponents] = useState([]);
   const tokens = useAdminStore((state) => state.tokenValue);
   const checkAdmin = useAdminStore((state) => state.token);
   const checkUser = useUserStore((state) => state.token);
-  const param = useParams();
-  useEffect(() => {
-    console.log(param);
-  }, [param]);
 
   useEffect(() => {
     console.log(checkAdmin, checkUser);
@@ -31,15 +27,8 @@ const CheckOut = () => {
 
   const { id: params } = useParams();
   const navigate = useNavigate();
-  const getAssignedComponents = async (studentID) => {
-    const { data } = await axios.post(
-      `http://localhost:8000/students/components`,
-      {
-        studentID,
-      }
-    );
-    setComponents(await data);
-  };
+
+  const { data: components } = getAStudentComponents({ params });
 
   useEffect(() => {
     if (tokens) {
@@ -48,9 +37,7 @@ const CheckOut = () => {
       setAccessToken(false);
     }
   }, []);
-  useEffect(() => {
-    getAssignedComponents(params);
-  }, [params, tokens]);
+
   const updateQuantity = async (name) => {
     console.log({
       studentID: components[0]?.studentID.studentID,
@@ -81,35 +68,40 @@ const CheckOut = () => {
       alert(err.response.data.detail ?? err);
     }
   };
-  const returnComp = async (name, qty) => {
-    try {
-      const headers = {
-        headers: {
-          Authorization: `Bearer ${tokens}`,
-        },
-      };
+  const { mutate: returnComp } = returnComponent();
+  // const returnComp = async (name, qty) => {
+  //   try {
+  //     const headers = {
+  //       headers: {
+  //         Authorization: `Bearer ${tokens}`,
+  //       },
+  //     };
 
-      const { data } = await axios.put(
-        "http://localhost:8000/students/postComponent",
-        {
-          studentID: components[0]?.studentID.studentID,
-          quantity: parseInt(qty) - qtyAccess,
-          returned: true,
-          component: name,
-        },
-        headers
-      );
-      alert(data?.message);
-    } catch (err) {
-      alert(err.response.data.detail ?? err);
-    }
-  };
+  //     const { data } = await axios.put(
+  //       "http://localhost:8000/students/postComponent",
+  //       {
+  //         studentID: components[0]?.studentID.studentID,
+  //         quantity: parseInt(qty) - qtyAccess,
+  //         returned: true,
+  //         component: name,
+  //       },
+  //       headers
+  //     );
+  //     alert(data?.message);
+  //   } catch (err) {
+  //     alert(err.response.data.detail ?? err);
+  //   }
+  // };
   const handleAccess = (name) => {
     setEditAccess(false);
     updateQuantity(name);
   };
   const handleReturn = ({ name, qty }) => {
-    returnComp(name, qty);
+    returnComp({
+      name,
+      qty: parseInt(qty) - qtyAccess,
+      studentID: components[0]?.studentID.studentID,
+    });
   };
   return (
     <>
@@ -127,7 +119,7 @@ const CheckOut = () => {
         {components.map((component, i) => (
           <div
             key={i}
-            className="max-w-sm rounded overflow-hidden shadow-lg p-8 "
+            className="group max-w-sm rounded overflow-hidden shadow-lg p-8 "
           >
             <img
               src={`http://localhost:8000` + component.component.image}
@@ -160,10 +152,13 @@ const CheckOut = () => {
                   )}
                   {""}
                 </p>
-
+                <p className="text-lg font-semibold text-white ">
+                  {" "}
+                  Returned:{JSON.stringify(component.returned)}
+                </p>
                 <div className="flex space-x-16">
                   <div>
-                    {accessToken && !editAccess && (
+                    {!component.returned && accessToken && !editAccess && (
                       <div
                         onClick={() => setEditAccess(true)}
                         className="bg-dpink hover:cursor-pointer  mt-3 px-3 py-2  hover:bg-grlink rounded-lg flex items-center justify-center w-20"
@@ -174,7 +169,7 @@ const CheckOut = () => {
                       </div>
                     )}
 
-                    {accessToken && editAccess && (
+                    {!component.returned && accessToken && editAccess && (
                       <div
                         onClick={() =>
                           handleAccess((name = component.component.name))
@@ -188,7 +183,7 @@ const CheckOut = () => {
                     )}
                   </div>
 
-                  {accessToken && (
+                  {!component.returned && accessToken && (
                     <div
                       onClick={() =>
                         handleReturn({

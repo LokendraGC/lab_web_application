@@ -26,7 +26,7 @@ const Admin_Create_User = () => {
       };
       const { data } = await axios.post(
         "http://localhost:8000/students/",
-        { studentID: rollNo },
+        { studentID: rollNo.toUpperCase() },
         headers
       );
       alert(data?.message);

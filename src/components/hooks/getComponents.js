@@ -19,6 +19,24 @@ export const getAllComponents = () => {
 
   return { data: data || [], ...rest };
 };
+export const getAStudentComponents = ({ params }) => {
+  const getAssignedComponents = async () => {
+    const { data } = await axios.post(
+      `http://localhost:8000/students/components`,
+      {
+        studentID: params,
+      }
+    );
+    return await data;
+  };
+
+  let { data, ...rest } = useQuery({
+    queryKey: ["/student/components"],
+    queryFn: getAssignedComponents,
+  });
+
+  return { data: data || [], ...rest };
+};
 export const createComponent = () => {
   const token = useAdminStore((state) => state.tokenValue);
   const queryClient = useQueryClient();
@@ -197,6 +215,45 @@ export const assignComponent = () => {
         queryKey: ["/components"],
         type: "inactive", // only invalidate inactive queries
         refetchType: "inactive",
+        // refetch all inactive stale data
+      });
+    },
+  });
+};
+export const returnComponent = () => {
+  const token = useAdminStore((state) => state.tokenValue);
+  const queryClient = useQueryClient();
+  const returnComp = async ({ name, qty, studentID }) => {
+    try {
+      const headers = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        "http://localhost:8000/students/postComponent",
+        {
+          studentID: studentID,
+          quantity: qty,
+          returned: true,
+          component: name,
+        },
+        headers
+      );
+      alert(data?.message);
+    } catch (err) {
+      alert(err.response.data.detail ?? err);
+    }
+  };
+
+  return useMutation({
+    mutationFn: returnComp,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["/student/components"],
+
         // refetch all inactive stale data
       });
     },

@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import dcmotor from "../assets/images/Motors/brush_less.jpg";
 import bluetooth from "../assets/images/Sensors/bluetooth_module.jpg";
 import jumper from "../assets/images/cables/f_f_jumper.jpg";
-import {RxCross1} from 'react-icons/rx'
+import { RxCross1 } from "react-icons/rx";
 import { useAdminStore, useUserStore } from "../../store";
 import { useNavigate } from "react-router-dom";
 import { assignComponent } from "./hooks/getComponents";
@@ -53,6 +53,7 @@ const AdminCheckOut = () => {
   const checkAdmin = useAdminStore((state) => state.token);
   const components = useAdminStore((state) => state.components);
   const deleteComponent = useAdminStore((state) => state.deleteComponent);
+  const resetComponent = useAdminStore((state) => state.resetComponent);
   const { mutate: postComponent } = assignComponent();
 
   const checkUser = useUserStore((state) => state.token);
@@ -74,8 +75,8 @@ const AdminCheckOut = () => {
   const handleProceed = (e) => {
     e.preventDefault();
     const postData = updateData(updatedData);
-    console.log(postData);
     postComponent(postData);
+    // resetComponent();
   };
   return (
     <div className="admincheck text-white">
@@ -90,29 +91,32 @@ const AdminCheckOut = () => {
       </div>
 
       <div className=" pt-24 flex justify-center">
-        <table class="min-w- divide-y divide-gray-200 mr-12 ml-12 ">
+        <table className="min-w- divide-y divide-gray-200 mr-12 ml-12 ">
           <thead className=" text-white">
             <tr>
-              <th class="py-3 px-6  text-center">SN.</th>
-              <th class="py-3 px-6  text-center">Name</th>
-              <th class="py-3 px-6 text-center">Quantity</th>
-              <th class="py-3 px-6 text-center ">Delete</th>
+              <th className="py-3 px-6  text-center">SN.</th>
+              <th className="py-3 px-6  text-center">Name</th>
+              <th className="py-3 px-6 text-center">Quantity</th>
+              <th className="py-3 px-6 text-center ">Delete</th>
             </tr>
           </thead>
-          {updatedData.map(({id,pic,component,quantity},i)=>(
-
-          <tbody
-          key={i}
-          class="bg-prlink text-white divide-y divide-gray-200">
-            <tr>
-              <td class="py-4 px-6 text-center pt-">{id}</td>
-              <td class="py-4 px-6 text-center">{component}</td>
-              <td class="py-4 px-6 text-center">{quantity}</td>
-              <td class="py-4 px-6 text-center crush h-5 w-5 bg-dpink hover:cursor-pointer">
-                <RxCross1 className="h-7 w-7 ml-3 " />
-              </td>
-            </tr>
-          </tbody>
+          {updatedData.map(({ id, pic, component, quantity }, i) => (
+            <tbody
+              key={i}
+              className="bg-prlink text-white divide-y divide-gray-200"
+            >
+              <tr>
+                <td className="py-4 px-6 text-center pt-">{id}</td>
+                <td className="py-4 px-6 text-center">{component}</td>
+                <td className="py-4 px-6 text-center">{quantity}</td>
+                <td
+                  onClick={() => deleteComponent(id)}
+                  className="py-4 px-6 text-center crush h-5 w-5 bg-dpink hover:cursor-pointer"
+                >
+                  <RxCross1 className="h-7 w-7 ml-3 " />
+                </td>
+              </tr>
+            </tbody>
           ))}
         </table>
       </div>
