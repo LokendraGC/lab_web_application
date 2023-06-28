@@ -107,7 +107,7 @@ const UpdateUser = () => {
                 </form>
               </div>
               <h3 className="text-white font-semibold roll">Email</h3>
-              <div className="flex justify-center max-sm:mb-12">
+              <div className="flex justify-center max-sm:mb-">
                 <form action="">
                   <div className="flex justify-end">
                     <input
@@ -124,7 +124,9 @@ const UpdateUser = () => {
 
               <div
                 onClick={handleLogin}
-                className="mt-12  bg-dpink hover:cursor-pointer w-28 h-10 hover:bg-grlink rounded-lg flex items-center justify-center "
+                className="mt-12  bg-dpink hover:cursor-pointer
+                 w-28 h-10 hover:bg-grlink rounded-lg 
+                 flex items-center justify-center "
               >
                 <button className="text-white font-semibold ">Update</button>
               </div>
