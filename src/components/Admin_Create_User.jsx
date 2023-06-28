@@ -94,7 +94,8 @@ const Admin_Create_User = () => {
                       name="name"
                       placeholder="SEC076BEI012"
                       className="p-1  pr-32 pl-2 bg-white border-2 rounded-sm
-            text-black focus:outline-none my-6 border-bl"
+            text-black focus:outline-none my-6 border-bl max-sm:w-64 
+            max-sm:m-5"
                     />
                   </div>
                 </form>

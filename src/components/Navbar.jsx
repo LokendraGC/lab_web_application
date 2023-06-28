@@ -59,7 +59,7 @@ function Navbar() {
     h-20 px-8 text-white sticky top-0 shadow-lg z-50 font-semibold 
     ${
       open
-        ? " max-sm:h-20 max-sm:pt-4 max-sm:duration-300 overflow-auto max-sm:absolute max-sm:top-0 z-50"
+        ? " max-sm:h-20 max-sm:pt-4 max-sm:duration-300 overflow-auto max-sm:absolute max-sm:top-0"
         : " max-sm:h-max max-sm:pb-10 max-sm:w-full overflow-auto max-sm:bg-head max-sm:duration-500 max-sm:text-white max-sm:absolute max-sm:top-0 z-50"
     }`}
       >
@@ -89,7 +89,7 @@ function Navbar() {
         )}
         {adminStatusToken && !userStatusToken && (
           <div
-            className={`flex justify-center  w-full items-center space-x-9 
+            className={`max-sm:duration-300 md:flex md:justify-end  max-sm:flex max-sm:justify-center  w-full items-center space-x-9 
           md:flex-row flex-col  md:space-y-0 max-sm:space-y-7 
           ${
             open ? "" : " max-sm:text-xl max-sm:pt-12 max-sm:text-center w-full"
@@ -164,13 +164,13 @@ function Navbar() {
         {!adminStatusToken && !userStatusToken && (
           <>
             <Link to={"/about"}>
-              <div className="md:pl-[700px] max-sm:pt-10 max-sm:pl-16">
+              <div className="md:pl-[700px] max-sm:pt-10 max-sm:mr-10 max-sm:w-full max-sm:pb-10">
                 About Us
               </div>
             </Link>
             <Link to={"/login"}>
               <div
-                className={`max-sm:pt-5 pr-20 font-bold hover:cursor-pointer grid grid-flow-col max-sm:pr-0 max-sm:mt-5${
+                className={`max-sm:pt-5 pr-20 font-bold hover:cursor-pointer grid grid-flow-col max-sm:pr-0 max-sm:mt-5 max-sm:pb-10 ${
                   open ? "" : " "
                 }`}
               >

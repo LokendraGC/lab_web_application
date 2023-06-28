@@ -53,7 +53,7 @@ const Add_Compo = () => {
     }
   }, [pathname]);
   return (
-    <div className="max-sm:flex ">
+    <div className="max-sm:flex max-sm:overflow-hidden">
       <div className=" compo flex  justify-start pt-16  text-white font-semibold border-gray-500  ">
         <div className="compo  sidebar w-1/4 h-40 ml-5  border-2 border-gray-600 mt-16 max-sm:h-24 max-sm:w-36 ">
           <div className="  space-y-6 ">
@@ -78,7 +78,7 @@ const Add_Compo = () => {
         </div>
 
         <div className="login flex justify-center  w-1/2 ml-4  items-center max-sm:pr-3 ">
-          <div className="box  w-96  shadow-xl max-sm:mt-64 max-sm:mr-[540px]">
+          <div className="box  w-96  shadow-xl max-sm:mt-64 max-sm:mr-[530px]">
             <div className="pt-4 flex flex-col items-start">
               <div className="flex justify-center ">
                 <form action="">
