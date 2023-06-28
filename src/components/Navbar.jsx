@@ -69,7 +69,7 @@ function Navbar() {
               open ? "max-sm:ml-[-40px]" : "max-sm:hidden"
             }`}
           >
-            <img src={logo} className="h-16 w-60 " alt="" />
+            <img src={logo} className="h-16 w-60 object-contain " alt="" />
           </div>
         </Link>
         {userStatusToken && !adminStatusToken && (
@@ -163,8 +163,10 @@ function Navbar() {
         )}
         {!adminStatusToken && !userStatusToken && (
           <>
-            <Link to={'/about'}>
-              <div className="md:pl-[700px] max-sm:pt-10 max-sm:pl-16" >About Us</div>
+            <Link to={"/about"}>
+              <div className="md:pl-[700px] max-sm:pt-10 max-sm:pl-16">
+                About Us
+              </div>
             </Link>
             <Link to={"/login"}>
               <div

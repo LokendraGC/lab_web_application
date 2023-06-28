@@ -34,7 +34,12 @@ export const getAStudentComponents = ({ params }) => {
     queryKey: ["/student/components"],
     queryFn: getAssignedComponents,
   });
-
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries({
+    queryKey: ["/student/components"],
+    type: "inactive", // only invalidate inactive queries
+    refetchType: "inactive", // refetch all inactive stale data
+  });
   return { data: data || [], ...rest };
 };
 export const createComponent = () => {

@@ -1,8 +1,8 @@
-import React from 'react'
-import './style.css'
+import React from "react";
+import "./style.css";
 import logo from "../assets/images/text_logo_thumb.png";
-import { Link } from 'react-router-dom';
-import { BsFacebook, BsInstagram } from 'react-icons/bs';
+import { Link } from "react-router-dom";
+import { BsFacebook, BsInstagram } from "react-icons/bs";
 
 const About = () => {
   return (
@@ -34,7 +34,7 @@ const About = () => {
       </div>
       <div className="flex justify-center pl-6 max-sm:pl-0">
         <Link to="/" className="">
-          <img src={logo} className="h-16 w-60 " alt="" />
+          <img src={logo} className="h-16 w-60 object-contain" alt="" />
         </Link>
         <div className="flex pt-3 space-x-8 max-sm:pr-5">
           <a
@@ -55,6 +55,6 @@ const About = () => {
       </div>
     </>
   );
-}
+};
 
-export default About
+export default About;

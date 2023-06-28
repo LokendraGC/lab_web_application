@@ -75,8 +75,13 @@ const AdminCheckOut = () => {
   const handleProceed = (e) => {
     e.preventDefault();
     const postData = updateData(updatedData);
-    postComponent(postData);
-    // resetComponent();
+    try {
+      postComponent(postData);
+      resetComponent();
+      setRoll("");
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="admincheck text-white">
