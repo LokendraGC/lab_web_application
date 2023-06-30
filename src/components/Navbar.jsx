@@ -20,7 +20,7 @@ function Navbar() {
   const checkAdminToken = useAdminStore((state) => state.checkStatus);
   const removeAdminToken = useAdminStore((state) => state.removeToken);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     checkUserToken();
@@ -63,6 +63,7 @@ function Navbar() {
         : " max-sm:h-max max-sm:pb-10 max-sm:w-full overflow-auto max-sm:bg-head max-sm:duration-500 max-sm:text-white max-sm:absolute max-sm:top-0 z-50"
     }`}
       >
+        {console.log(open)}
         <Link to="/">
           <div
             className={`flex align-middle hover:cursor-pointer ${

@@ -10,7 +10,7 @@ const Main_Page = () => {
   return (
     <React.Fragment>
       <section className="overflow-x-hidden ">
-        <div className="md:grid md:grid-cols-12 mt-8  ">
+        <div className="md:grid md:grid-cols-12 mt-32 md:mt-0  ">
           <div className="sidebar  md:w-full w-[98%]  md:col-span-3 md:mt-20 mb-8 md:mb-0 h-max border-2 md:ml-5 border-gray-500 ">
             <Sidebar getAllData={data} />
           </div>

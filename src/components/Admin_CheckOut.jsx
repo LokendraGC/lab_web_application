@@ -79,7 +79,7 @@ const AdminCheckOut = () => {
   };
   return (
     <div className="admincheck text-white">
-      <div className="flex justify-center items-center  space-x-2 pt-12">
+      <div className="flex justify-center items-center  space-x-2 pt-12 max-sm:pt-44">
         <label>Roll no.</label>
         <input
           onChange={(e) => setRoll(e.target.value)}
@@ -108,7 +108,7 @@ const AdminCheckOut = () => {
               <td class="py-4 px-6 text-center pt-">{id}</td>
               <td class="py-4 px-6 text-center">{component}</td>
               <td class="py-4 px-6 text-center">{quantity}</td>
-              <td class="py-4 px-6 text-center crush h-5 w-5 bg-dpink hover:cursor-pointer">
+              <td onClick={()=>deleteComponent(id)} class="py-4 px-6 text-center crush h-5 w-5 bg-dpink hover:cursor-pointer">
                 <RxCross1 className="h-7 w-7 ml-3 " />
               </td>
             </tr>
