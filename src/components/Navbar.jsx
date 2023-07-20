@@ -32,6 +32,8 @@ function Navbar() {
   }, [userStatusToken, adminStatusToken, checkUserToken, checkAdminToken]);
 
   const handleLogout = () => {
+    const apiBaseUrl = process.env.VITE_API_BASE_URL;
+
     if (adminStatusToken) {
       const logoutFunc = async () => {
         const headers = {
@@ -39,7 +41,7 @@ function Navbar() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         };
-        await axios.post("http://localhost:8000/user/logout", {}, headers);
+        await axios.post(`${apiBaseUrl}/user/logout`, {}, headers);
       };
       logoutFunc();
       removeAdminToken();
@@ -104,16 +106,6 @@ function Navbar() {
               </h1>
             </Link>
 
-            <Link to={"/assigned"} className={`${open ? "" : "max-sm:w-full"}`}>
-              <h1
-                onClick={handleLinkClick}
-                className={`hover:cursor-pointer ${
-                  open ? "max-sm:hidden" : ""
-                } `}
-              >
-                Assigned
-              </h1>
-            </Link>
             <Link to={"/checkout"} className={`${open ? "" : "max-sm:w-full"}`}>
               <h1
                 onClick={handleLinkClick}
@@ -124,7 +116,17 @@ function Navbar() {
                 Checkout
               </h1>
             </Link>
-            <Link
+            <Link to={"/assigned"} className={`${open ? "" : "max-sm:w-full"}`}>
+              <h1
+                onClick={handleLinkClick}
+                className={`hover:cursor-pointer ${
+                  open ? "max-sm:hidden" : ""
+                } `}
+              >
+                Assigned
+              </h1>
+            </Link>
+            {/* <Link
               to={"/settings/updateuser"}
               className={`${open ? "" : "max-sm:w-full"}`}
             >
@@ -136,7 +138,7 @@ function Navbar() {
               >
                 Settings
               </h1>
-            </Link>
+            </Link> */}
             <div
               className={`pr-20 font-bold hover:cursor-pointer grid grid-flow-col 
             max-sm:ml-9 max-sm:pr-0  ${open ? "max-sm:hidden" : " "}`}

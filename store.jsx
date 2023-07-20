@@ -46,10 +46,8 @@ const adminStore = (set) => ({
         password,
       }),
     };
-    const data = await fetch(
-      "http://localhost:8000/user/login",
-      requestOptions
-    );
+    const apiBaseUrl = process.env.VITE_API_BASE_URL;
+    const data = await fetch(`${apiBaseUrl}/user/login`, requestOptions);
     const res = await data.json();
     if (res.access) {
       set({ tokenValue: res.access });

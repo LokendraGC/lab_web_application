@@ -22,10 +22,10 @@ const Login = () => {
       navigate("/");
     }
   }, [statusToken, checkToken]);
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
+
   const getStudent = async (rollNo) => {
-    const { data } = await axios.get(
-      "http://localhost:8000/students/components"
-    );
+    const { data } = await axios.get(`${apiBaseUrl}/students/components`);
 
     try {
       const matchingItem = await data.find(
@@ -49,7 +49,7 @@ const Login = () => {
   };
   const handleLogin = (e) => {
     e.preventDefault();
-    getStudent(rollNo);
+    getStudent(rollNo.toUpperCase());
   };
 
   return (

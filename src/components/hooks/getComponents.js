@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useAdminStore } from "../../../store";
+const apiBaseUrl = process.env.VITE_API_BASE_URL;
 
 export const getAllComponents = () => {
   const fetchComponents = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/components/all");
+      const { data } = await axios.get(`${apiBaseUrl}/components/all`);
       return await data;
     } catch (err) {
       alert(err);
@@ -19,19 +20,18 @@ export const getAllComponents = () => {
 
   return { data: data || [], ...rest };
 };
-export const getAStudentComponents = ({ params }) => {
+export const getAStudentComponents = (params) => {
   const getAssignedComponents = async () => {
-    const { data } = await axios.post(
-      `http://localhost:8000/students/components`,
-      {
-        studentID: params,
-      }
-    );
+    if (!params) return {};
+
+    const { data } = await axios.post(`${apiBaseUrl}/students/components`, {
+      studentID: params,
+    });
     return await data;
   };
 
   let { data, ...rest } = useQuery({
-    queryKey: ["/student/components"],
+    queryKey: ["/student/components", params],
     queryFn: getAssignedComponents,
   });
   const queryClient = useQueryClient();
@@ -60,7 +60,8 @@ export const createComponent = () => {
       form.append("image", image);
       form.append("category", category);
       const { data } = await axios.post(
-        "http://localhost:8000/components/",
+        `${apiBaseUrl}/components/`,
+
         form,
         headers
       );
@@ -113,7 +114,8 @@ export const updateComponent = () => {
       if (image !== undefined) form.append("image", image);
       form.append("category", category);
       const { data } = await axios.patch(
-        `http://localhost:8000/components/${id}/`,
+        `${apiBaseUrl}/components/${id}/`,
+
         form,
         headers
       );
@@ -153,7 +155,8 @@ export const deleteComponent = () => {
         },
       };
       const { data } = await axios.delete(
-        `http://localhost:8000/components/${id}`,
+        `${apiBaseUrl}/components/${id}/`,
+
         headers
       );
       if (await data.message) alert(await data?.message);
@@ -194,7 +197,8 @@ export const assignComponent = () => {
       };
 
       const { data } = await axios.post(
-        `http://localhost:8000/students/postComponent`,
+        `${apiBaseUrl}/students/postComponent`,
+
         postData,
         headers
       );
@@ -237,7 +241,8 @@ export const returnComponent = () => {
       };
 
       const { data } = await axios.put(
-        "http://localhost:8000/students/postComponent",
+        `${apiBaseUrl}/students/postComponent`,
+
         {
           studentID: studentID,
           quantity: qty,

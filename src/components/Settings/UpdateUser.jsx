@@ -12,6 +12,8 @@ const UpdateUser = () => {
   const navigate = useNavigate();
   const checkAdmin = useAdminStore((state) => state.token);
   const checkUser = useUserStore((state) => state.token);
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     if (!checkAdmin && !checkUser) {
       navigate("/");
@@ -26,7 +28,7 @@ const UpdateUser = () => {
         },
       };
       const { data } = await axios.put(
-        "http://localhost:8000/user/update",
+        `${apiBaseUrl}/user/update`,
         { username: username, email: email },
         headers
       );

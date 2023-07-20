@@ -19,8 +19,9 @@ const Assign_Compo = () => {
     }
   }, [checkAdmin, checkUser]);
   const getAssignedComponents = async () => {
+    const apiBaseUrl = process.env.VITE_API_BASE_URL;
     const { data: getData } = await axios.get(
-      `http://localhost:8000/students/components`
+      `${apiBaseUrl}/students/components`
     );
     setData(await getData);
   };

@@ -19,13 +19,15 @@ const AssigendCard = ({
   handleReturn,
   qtyAccess,
 }) => {
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
+
   return (
     <div
       key={component.quantity}
       className="group max-w-sm rounded overflow-hidden shadow-lg p-8 "
     >
       <img
-        src={`http://localhost:8000` + component.component.image}
+        src={apiBaseUrl + component.component.image}
         alt=""
         className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700 "
       />
@@ -119,7 +121,7 @@ const CheckOut = () => {
   const { id: params } = useParams();
   const navigate = useNavigate();
 
-  const { data: components } = getAStudentComponents({ params });
+  const { data: components } = getAStudentComponents(params);
 
   useEffect(() => {
     if (tokens) {
@@ -144,7 +146,7 @@ const CheckOut = () => {
       };
 
       const { data } = await axios.put(
-        "http://localhost:8000/students/postComponent",
+        apiBaseUrl,
         {
           studentID: components[0]?.studentID.studentID,
           quantity: qtyAccess,
@@ -169,7 +171,7 @@ const CheckOut = () => {
   //     };
 
   //     const { data } = await axios.put(
-  //       "http://localhost:8000/students/postComponent",
+  //       "https://shrestharitikbatti.pythonanywhere.com/students/postComponent",
   //       {
   //         studentID: components[0]?.studentID.studentID,
   //         quantity: parseInt(qty) - qtyAccess,
@@ -224,7 +226,7 @@ const CheckOut = () => {
           //   className="group max-w-sm rounded overflow-hidden shadow-lg p-8 "
           // >
           //   <img
-          //     src={`http://localhost:8000` + component.component.image}
+          //     src={`https://shrestharitikbatti.pythonanywhere.com` + component.component.image}
           //     alt=""
           //     className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700 "
           //   />

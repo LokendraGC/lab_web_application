@@ -110,6 +110,7 @@ const Card = ({ id, src, title: component, qty, category }) => {
     setEditAccess(false);
     addComponent(id, src, component, (qty = parseInt(qtyAccess)), category);
   };
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
 
   return (
     <>
@@ -120,7 +121,7 @@ const Card = ({ id, src, title: component, qty, category }) => {
       >
         <img
           loading="lazy"
-          src={`http://localhost:8000${src}`}
+          src={`${apiBaseUrl + src}`}
           alt=""
           className="w-full h-40 mx-auto object-contain border-2 bg-gray-800 border-gray-700"
         />

@@ -11,6 +11,8 @@ const ChangePassword = () => {
   const navigate = useNavigate();
   const checkAdmin = useAdminStore((state) => state.token);
   const checkUser = useUserStore((state) => state.token);
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
+
   useEffect(() => {
     if (!checkAdmin && !checkUser) {
       navigate("/");
@@ -25,7 +27,7 @@ const ChangePassword = () => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:8000/students/",
+        `${apiBaseUrl}/students/`,
         { studentID: rollNo },
         headers
       );

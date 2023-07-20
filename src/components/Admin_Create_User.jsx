@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAdminStore, useUserStore } from "../../store";
 
 const Admin_Create_User = () => {
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
+
   const [rollNo, setRollNo] = useState("");
   // const statusToken = useStateStore((state) => state.token);
   // const checkToken = useStateStore((state) => state.checkStatus);
@@ -25,7 +27,7 @@ const Admin_Create_User = () => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:8000/students/",
+        `${apiBaseUrl}/students/`,
         { studentID: rollNo.toUpperCase() },
         headers
       );

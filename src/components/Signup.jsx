@@ -19,6 +19,7 @@ const Signup = () => {
       navigate("/");
     }
   }, [checkToken, statusToken]);
+  const apiBaseUrl = process.env.VITE_API_BASE_URL;
 
   const handleRegister = async (username, password, email) => {
     const requestOptions = {
@@ -30,10 +31,7 @@ const Signup = () => {
         email,
       }),
     };
-    const data = await fetch(
-      "http://localhost:8000/user/register",
-      requestOptions
-    );
+    const data = await fetch(`${apiBaseUrl}/user/register`, requestOptions);
     const res = await data.json();
     if (res.token) return res.token;
     else {
