@@ -85,7 +85,7 @@ const AdminCheckOut = () => {
   };
   return (
     <div className="admincheck text-white">
-      <div className="flex justify-center items-center  space-x-2 pt-12">
+      <div className="flex justify-center items-center  space-x-2 pt-12 max-sm:pt-44">
         <label>Roll no.</label>
         <input
           onChange={(e) => setRoll(e.target.value)}
